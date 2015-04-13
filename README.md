@@ -2,12 +2,19 @@
 ###Sitio web de curriculums online
 
 Tucv es un sitio web donde podrás crear,editar tu curriculum en la nube, y acceder desde cualquier lugar.
-Desarrollado por :
+
+Desarrollado por:
   [Daniel Jara](http://twitter.com/davegandy),
   [Jorge Alvarez](http://twitter.com/davegandy).
   
 Mantente al día con la última versión y anuncios en Twitter:
 [@tucvchile](http://twitter.com/tucvchile).
+
+##Herramientas
+- [Symfony](http://symfony.com/)
+- PHP, JavaScript, Jquery, MySql
+- [Bootstrap](http://getbootstrap.com/)
+- [Font-awesome](http://fortawesome.github.io/Font-Awesome/)
 
 ##Desarrolladores
 - Email: jara.pezzuoli@gmail.com - jorge.alvarez198977@gmail.com
