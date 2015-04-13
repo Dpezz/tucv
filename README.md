@@ -12,7 +12,9 @@ Mantente al día con la última versión y anuncios en Twitter:
 
 ##Herramientas
 - [Symfony](http://symfony.com/)
-- PHP, JavaScript, Jquery, MySql
+- [PHP](http://php.net/)
+- [Jquery](https://jquery.com/)
+- [MySQL](https://www.mysql.com/)
 - [Bootstrap](http://getbootstrap.com/)
 - [Font-awesome](http://fortawesome.github.io/Font-Awesome/)
 
