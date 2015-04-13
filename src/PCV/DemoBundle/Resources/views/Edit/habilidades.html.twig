@@ -1,0 +1,31 @@
+{% block edit_ability %}
+<form action="{{ path('_edit_habilidad') }}" method="POST" role="form">
+	
+	<div class="well">
+		{% if datosD and datosD.habilidades is not empty %}
+			<input name="_habilidades" type="text" value="{{datosD.habilidades}}" data-role="tagsinput" placeholder="Añadir competencia"/>
+		{% else %}
+			<input name="_habilidades" type="text" data-role="tagsinput" placeholder="Añadir competencia"/>
+		{% endif %}
+	</div>
+	
+	<div class="modal-footer">
+        <button type="submit" class="btn btn-blue" id="saveHabilidades">Guardar</button>
+        <button type="button" class="btn btn-default" id="CCHabilidad" data-dismiss="modal">Cerrar</button>
+    </div>
+</form>
+
+<link rel="stylesheet" type="text/css" href="{{asset('bundles/pcvdemo/plugin/taginput/bootstrap-tagsinput.css')}}"/>
+<script src="{{asset('bundles/pcvdemo/plugin/taginput/bootstrap-tagsinput.js')}}"></script>
+<script type="text/javascript">
+	$('#saveHabilidades').click(function(){
+		console.log($("input").val())
+		console.log($("input").tagsinput('items'))
+	})
+
+	$('#CCHabilidad').click(function(){
+        location.href='{{path('_private_resume_profile')}}';
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends 'PCVDemoBundle:Plantillas:page.html.twig' %} 
+
+{% block title 'tuCV | Restablecer Contraseña'  %}
+
+{% block navbar %}
+	{% embed 'PCVDemoBundle:Plantillas:pagenav.html.twig' %}
+		{% block navbar %}
+			{{parent()}}
+		{% endblock %}
+	{% endembed %}
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+{# alerta resultado del formulario #}
+    {% if flag == 1 %}
+        <div id="alert" class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <i class="fa fa-check-circle"></i>&nbsp;<strong>Finalizado!</strong>&nbsp;Contraseña cambiada con éxito.
+        </div>
+    {% elseif flag == 0 %}
+        <div id="alert" class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <i class="fa fa-times-circle"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;ocurrio un error al cambiar la contraseña, vuelve a intentarlo.
+        </div>
+    {% elseif flag == 2 %}
+        <div id="alert" class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <i class="fa fa-times-circle"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;El correo ingresado es incorrecto. Por favor ingresa un correo diferente.
+        </div>
+    {% endif %}
+
+
+	<div class="page-header">
+		<h2 class="text-muted">Restablece tu contraseña.</h2>
+	</div>
+
+	<section>
+
+		<div class="alert alert-info" role="alert">
+			<i class="fa fa-info-circle fa-lg"></i>&nbsp;Restablece tu contraseña ingresando el correo electrónico con el cual la solicitaste, e ingresa tu nueva contraseña.<br>
+		</div>
+
+		<form id="formRestore" action="{{ path('_secured_restore',{'codigo':codigo}) }}" method="POST" role="form">
+			
+
+			<div class="form-group">
+	            <label class="text-muted">Correo Electrónico</label>
+	            <input type="email" class="form-control" name="_email" placeholder="Correo electrónico" required />
+		    </div>
+
+		    <hr>
+		  
+		    <div class="form-group">
+	            <label class="text-muted">Nueva Contraseña</label>
+	            <input type="password" class="form-control" name="_passwordNew" pattern=".{4,}" placeholder="Contraseña"autofocus required />
+		    </div>
+
+		    <div class="form-group">
+		    	<label class="text-muted">Confirmar Contraseña</label>
+	            <input type="password" class="form-control" name="_confirmPasswordNew" pattern=".{4,}" placeholder="Confirmar Contraseña" autofocus required />
+		    </div>
+			
+			<div class="modal-footer">
+		        <button type="submit" class="btn btn-default">
+		        	<i class="fa fa-share"></i>&nbsp;Guardar Cambios
+		        </button>
+		    </div>
+		</form>
+	</section>
+</div>
+
+<script src="{{ asset('bundles/pcvdemo/plugin/validator/js/formValidation.js') }}"></script>
+<script src="{{ asset('bundles/pcvdemo/plugin/validator/js/framework/bootstrap.js') }}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+ 	exist();
+
+    $('#formRestore').formValidation({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+             _email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Correo electrónico no puede estar vacío'
+                    }
+                }
+            },
+            _passwordNew: {
+                validators: {
+                    notEmpty: {
+                        message: 'Contraseña no puede estar vacía'
+                    }
+                }
+            },
+            _confirmPasswordNew: {
+                validators: {
+                    notEmpty: {
+                        message: 'Contraseña no puede estar vacía'
+                    },
+                    identical: {
+                        field: '_passwordNew',
+                        message: 'Contraseñas no coinciden'
+                    }
+                }
+            }
+        }
+    });
+       
+    function exist(){
+        if($('#alert').length ){
+            {% if flag == 1 %}
+            setTimeout(function(){ $('#alert').hide(1000); window.location = "{{path('_demo_logout')}}"}, 5000);
+            {% else %}
+            setTimeout(function(){ $('#alert').hide(1000);}, 5000);
+            {% endif %}
+        }
+    };
+});
+</script>
+{% endblock %}
+
+
+{% block footer_page %}
+    <!-- mostramos el texto de cabecera  -->
+    {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+    {% block footer %}
+      {{parent()}}
+    {% endblock %}
+    <!-- end embed -->
+{% endblock %}

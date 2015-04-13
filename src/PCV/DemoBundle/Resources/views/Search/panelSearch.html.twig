@@ -1,0 +1,109 @@
+{% block panel_search %}
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  	<div class="panel panel-warning">
+	    <div class="panel-heading" role="tab" id="headingOne">
+	      	<h4 class="panel-title">
+	        	<a data-toggle="collapse" data-parent="#accordion" href="#collapseSearch" aria-expanded="true" aria-controls="collapseOne">
+		          <i class="fa fa-search"></i>
+		          &nbsp;Búsqueda Avanzada&nbsp;
+		          <i class="fa fa-caret-down"></i>
+		        </a>
+	      	</h4>
+	    </div>
+	    <div id="collapseSearch" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+	      	<div class="panel-body">
+      		{% if app.user %}
+	      	<form action="{{path('_search_advanced_private')}}" method="POST">
+	      	{% else %}
+	      	<form action="{{path('_search_advanced_public')}}" method="POST">
+	      	{% endif %}
+	      		<div class="row">
+	      			<div class="col-md-6">
+	      				<div class="form-group">
+						  	<label>Región:</label>
+						  	<select class="form-control input-sm" name="_region" >
+								<option value="" {% if region is empty %} selected {% endif %}>Todas</option>
+								<option value="Arica y Parinacota" {% if region == 'Arica y Parinacota' %} selected {% endif %} >Arica y Parinacota</option>
+								<option value="Tarapacá" {% if region == 'Tarapacá' %} selected {% endif %}>Tarapacá</option>
+								<option value="Antofagasta" {% if region == 'Antofagasta' %} selected {% endif %}>Antofagasta</option>
+								<option value="Atacama" {% if region == 'Atacama' %} selected {% endif %}>Atacama</option>
+								<option value="Coquimbo" {% if region == 'Coquimbo' %} selected {% endif %}>Coquimbo</option>
+								<option value="Valparaíso" {% if region == 'Valparaíso' %} selected {% endif %}>Valparaíso</option>
+								<option value="Ohiggins" {% if region == 'Ohiggins' %} selected {% endif %}>Ohiggins</option>
+								<option value="Maule" {% if region == 'Maule' %} selected {% endif %}>Maule</option>
+								<option value="Bío Bío" {% if region == 'Bío Bío' %} selected {% endif %}>Bío Bío</option>
+								<option value="Araucanía" {% if region == 'Araucanía' %} selected {% endif %}>Araucanía</option>
+								<option value="Los Ríos" {% if region == 'Los Ríos' %} selected {% endif %}>Los Ríos</option>
+								<option value="Los Lagos" {% if region == 'Los Lagos' %} selected {% endif %}>Los Lagos</option>
+								<option value="Aysen" {% if region == 'Aysen' %} selected {% endif %}>Aysen</option>
+								<option value="Magallanes y Antártica" {% if region == 'Magallanes y Antártica' %} selected {% endif %}>Magallanes y Antártica</option>
+								<option value="Metropolitana" {% if region == 'Metropolitana' %} selected {% endif %}>Metropolitana</option>
+							</select>
+					  	</div>
+	      			</div>
+	      			
+	      			<div class="col-md-6">
+	      				<div class="form-group">
+						  	<label>Profesión:</label>
+						  	<select class="form-control input-sm" name="_category">
+								<option value="" {% if categoria is empty %} selected {% endif %}>Todas</option>
+								<option value="Administración/Oficina" {% if categoria == 'Administración/Oficina' %} selected {% endif %}>Administración/Oficina</option>
+								<option value="Arte/Diseño/Medios" {% if categoria == 'Arte/Diseño/Medios' %} selected {% endif %}>Arte/Diseño/Medios</option>
+								<option value="Científico/Investigación" {% if categoria == 'Científico/Investigación' %} selected {% endif %}>Científico/Investigación</option>
+								<option value="Informática/Telecom." {% if categoria == 'Informática/Telecom.' %} selected {% endif %}>Informática/Telecom.</option>
+								<option value="Dirección/Gerencia" {% if categoria == 'Dirección/Gerencia' %} selected {% endif %}>Dirección/Gerencia</option>
+								<option value="Economía/Contabilidad" {% if categoria == 'Economía/Contabilidad' %} selected {% endif %}>Economía/Contabilidad</option>
+								<option value="Educación/Universidad" {% if categoria == 'Educación/Universidad' %} selected {% endif %}>Educación/Universidad</option>
+								<option value="Hostelería/Turismo" {% if categoria == 'Hostelería/Turismo' %} selected {% endif %}>Hostelería/Turismo</option>
+								<option value="Ingeniería/Técnico" {% if categoria == 'Ingeniería/Técnico' %} selected {% endif %}>Ingeniería/Técnico</option>
+								<option value="Legal/Asesoría" {% if categoria == 'Legal/Asesoría' %} selected {% endif %}>Legal/Asesoría</option>
+								<option value="Márketing/Ventas" {% if categoria == 'Márketing/Ventas' %} selected {% endif %}>Márketing/Ventas</option>
+								<option value="Medicina/Salud" {% if categoria == 'Medicina/Salud' %} selected {% endif %}>Medicina/Salud</option>
+								<option value="Recursos Humanos" {% if categoria == 'Recursos Humanos' %} selected {% endif %}>Recursos Humanos</option>
+								<option value="Otra" {% if categoria == 'Otra' %} selected {% endif %}>Otra</option>
+							</select>
+					  	</div>
+	      			</div>
+	      		</div>
+				
+			  	<div class="row">
+			  		<div class="col-md-6">
+			  			<div class="form-group">
+						  	<label>Sexo:</label><br>
+						  	<label class="radio-inline">
+							  <input type="radio" name="_sexo" value="masculino" {% if sexo == 'masculino' %} checked {% endif %}> Masculino
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="_sexo" value="femenino" {% if sexo == 'femenino' %} checked {% endif %}> Femenino
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="_sexo" value="" {% if sexo is empty %} checked {% endif %}> Todos
+							</label>
+						</div>
+			  		</div>
+			  		<div class="col-md-6">
+			  			<div class="form-group">
+							<label>Conocimientos:</label>
+							<input type="text" class="form-control" name="_conocimientos" placeholder="conocimiento" value="{% if conocimientos is not empty %}{{conocimientos}}{% endif %}">
+							<small class="text-center"><em>usar "," para multiples conocimientos</em></small>
+						</div>
+			  		</div>
+			  	</div>
+			  	
+				<h6 class="division"></h6>
+				<button type="submit" class="btn btn-warning btn-lg btn-block">
+				<i class="fa fa-search white fa-lg"></i>&nbsp;Buscar</button>
+			</form>
+
+	      	</div>
+    	</div>
+  	</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+});
+</script>
+{% endblock %}

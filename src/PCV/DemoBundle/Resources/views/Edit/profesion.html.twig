@@ -1,0 +1,69 @@
+{% block edit_profession %}
+<form action="{{ path('_edit_profesion') }}" method="POST" role="form">
+	<div class="row">
+		<div class="col-md-8">		
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Categoria de tu Profesión"><i class="fa fa-plus-square-o"></i></span>
+					<select type="text" class="form-control input-sm" name="_categoria">
+						<option value=""{% if datosD and datosD.categoriaProfesion is empty %}selected{% endif %}>Categoria</option>
+		  				<option value="Administración/Oficina"{% if datosD and datosD.categoriaProfesion == "Administración/Oficina" %}selected{% endif %}>Administración/Oficina</option>
+		  				<option value="Arte/Diseño/Medios"{% if datosD and datosD.categoriaProfesion == "Arte/Diseño/Medios" %}selected{% endif %}>Arte/Diseño/Medios</option>
+		  				<option value="Científico/Investigación"{% if datosD and datosD.categoriaProfesion == "Científico/Investigación" %}selected{% endif %}>Científico/Investigación</option>
+		  				<option value="Informática/Telecom."{% if datosD and datosD.categoriaProfesion == "Informática/Telecom." %}selected{% endif %}>Informática/Telecom.</option>
+		  				<option value="Dirección/Gerencia"{% if datosD and datosD.categoriaProfesion == "Dirección/Gerencia" %}selected{% endif %}>Dirección/Gerencia</option>
+		  				<option value="Economía/Contabilidad"{% if datosD and datosD.categoriaProfesion == "Economía/Contabilidad" %}selected{% endif %}>Economía/Contabilidad</option>
+		  				<option value="Educación/Universidad"{% if datosD and datosD.categoriaProfesion == "Educación/Universidad" %}selected{% endif %}>Educación/Universidad</option>
+		  				<option value="Hostelería/Turismo"{% if datosD and datosD.categoriaProfesion == "Hostelería/Turismo" %}selected{% endif %}>Hostelería/Turismo</option>
+		  				<option value="Ingeniería/Técnico"{% if datosD and datosD.categoriaProfesion == "Ingeniería/Técnico" %}selected{% endif %}>Ingeniería/Técnico</option>
+		  				<option value="Legal/Asesoría"{% if datosD and datosD.categoriaProfesion == "Legal/Asesoría" %}selected{% endif %}>Legal/Asesoría</option>
+		  				<option value="Márketing/Ventas"{% if datosD and datosD.categoriaProfesion == "Márketing/Ventas" %}selected{% endif %}>Márketing/Ventas</option>
+		  				<option value="Medicina/Salud"{% if datosD and datosD.categoriaProfesion == "Medicina/Salud" %}selected{% endif %}>Medicina/Salud</option>
+		  				<option value="Recursos Humanos"{% if datosD and datosD.categoriaProfesion == "Recursos Humanos" %}selected{% endif %}>Recursos Humanos</option>
+		  				<option value="Otra"{% if datosD and datosD.categoriaProfesion == "Otra" %}selected{% endif %}>Otra</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="input-group">
+			<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Ingresa tu Carrera Ocupación o Profesión"><i class="fa fa-book"></i></span>
+			<input type="text" class="form-control input-sm" id="profesion" name="_titulo" placeholder="Carrera, Ocupación o Profesión..." value="{% if datosD and datosD.profesion is not empty %}{{datosD.profesion}}{% endif %}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+			<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Ingresa Titulos Secundarios separados por una ',' Ej: 'Titulo1, Titulo2'"><i class="fa fa-book"></i></span>
+			<input type="text" class="form-control input-sm" id="profesion_descripcion" name="_titulosecond" placeholder="Añade Titulos Secundarios..." value="{% if datosD and datosD.profesionsecond is not empty %}{{datosD.profesionsecond}}{% endif %}"/>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-7">
+			<div class="input-group">
+			<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Nivel Educación Superior"><i class="fa fa-certificate"></i></span>
+			<select class="form-control input-sm" name="_level">
+				<option value=""{% if datosD and datosD.level is empty %}selected{% endif %}>Nivel Educación Superior</option>
+				<option value="Titulado"{% if datosD and datosD.level == "Titulado" %}selected{% endif %}>Titulado</option>
+				<option value="Egresado"{% if datosD and datosD.level == "Egresado" %}selected{% endif %}>Egresado</option>
+				<option value="Cursando"{% if datosD and datosD.level == "Cursando" %}selected{% endif %}>Cursando</option>
+				<option value="Incompleta"{% if datosD and datosD.level == "Incompleta" %}selected{% endif %}>Incompleta</option>
+				<option value="Nula"{% if datosD and datosD.level == "Nula" %}selected{% endif %}>Nula</option>
+			</select>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="form-group">
+		<div class="input-group">
+			<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Ingresa Empresa o Proyecto Actual"><i class="fa fa-briefcase"></i></span>
+			<input type="text" class="form-control input-sm" id="actual" name="_actual" placeholder="Empresa o Proyecto Actual..." value="{% if datosD and datosD.actual is not empty %}{{datosD.actual}}{% endif %}"/>
+		</div>
+	</div>
+	<div class="modal-footer">
+        <button type="submit" class="btn btn-blue" id="name">Guardar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    </div>
+</form>
+{% endblock %}

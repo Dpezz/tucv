@@ -1,0 +1,201 @@
+{% block portada_private %}
+
+	{% block portada_public %}
+			
+		<h6 class="text-center">
+			{% use 'PCVDemoBundle:Show:imagen.html.twig' %}
+		    {% block image_public %}
+		       {{parent()}}
+		    {% endblock %}
+		</h6>
+	
+		{% use 'PCVDemoBundle:Show:profesion.html.twig' %}
+        {% block profession_public %}     
+            {{parent()}}
+        {% endblock %}
+        
+	{% endblock %}
+
+
+	<div class="">
+		<h3 class="panel-title">
+			<div class="btn-group pull-right">
+              <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-pencil"></i> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+              	<li><a href="#" data-toggle="modal" data-target="#profesion"><i class="fa fa-book"></i>&nbsp;Editar Profesión</a></li>
+              	<li class="divider"></li>
+              	<li><a href="#" data-toggle="modal" data-target="#redes"><i class="fa fa-users"></i>&nbsp;Editar Redes</a></li>
+              </ul>
+          </div>
+          <div class="btn-group pull-right">
+              <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-camera"></i> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#" data-toggle="modal" data-target="#imagen"><i class="fa fa-file-image-o"></i>&nbsp;Subir imagen</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#delete">
+                  <i class="fa fa-trash-o"></i>&nbsp;Eliminar Imagen</a>
+                </li>
+              </ul>
+          </div>
+          <div class="btn-group pull-right">
+              <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-video-camera"></i> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#" data-toggle="modal" data-target="#video"><i class="fa fa-file-video-o"></i>&nbsp;Agregar Video Curriculum</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#deleteVideo">
+                  <i class="fa fa-trash-o"></i>&nbsp;Eliminar Video</a>
+                </li>
+              </ul>
+          </div>
+		</h3>
+	</div>
+	
+
+{% endblock %}
+
+{% block modal_profession  %}
+<!-- Modal Editar datos Profesionales -->
+	<div class="modal fade" id="profesion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel">Editar Datos Profesionales</h4>
+	      </div>
+	      <div class="modal-body">
+	        {% use 'PCVDemoBundle:Edit:profesion.html.twig' %}
+	        {% block edit_profession %}
+	        {{parent()}}
+	        {% endblock %}
+	      </div>
+	    </div>
+	  </div>
+	</div>
+{% endblock %}
+
+
+{% block modal_red %}
+<!-- Modal Editar redes sociales -->
+	<div class="modal fade" id="redes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel">Editar Redes Sociales</h4>
+	      </div>
+	      <div class="modal-body">
+	        {% use 'PCVDemoBundle:Edit:redes.html.twig' %}
+	        {% block edit_red %}
+	        {{parent()}}
+	        {% endblock %}
+	      </div>
+	    </div>
+	  </div>
+	</div>
+{% endblock %}
+
+
+{% block modal_image %}
+<!-- Modal Agregar imagen -->
+	<div class="modal fade" id="imagen" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" id="addImagen" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel">Editar Imagen de Perfil</h4>
+	      </div>
+	      <div class="modal-body">
+	        {% use 'PCVDemoBundle:Edit:imagen.html.twig' %}
+	        {% block edit_image %}
+	        {{parent()}}
+	        {% endblock %}
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+<!-- Modal eliminar imagen -->
+	<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel">Eliminar Imagen</h4>
+	      </div>
+	      <div class="modal-body">
+	        {% use 'PCVDemoBundle:Edit:imagen.html.twig' %}
+	          {% block delete_image %}
+	          {{parent()}}
+	          {% endblock %}
+	      </div>
+	    </div>
+	  </div>
+	</div>
+{% endblock %}
+
+
+{% block modal_video %}
+<!-- Modal Agregar Enlace de Video -->
+	<div class="modal fade bs-example-modal-sm" id="video" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-sm">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel">Editar Video Curriculum</h4>
+	      </div>
+	      <div class="modal-body">
+	        {% use 'PCVDemoBundle:Edit:video.html.twig' %}
+	        {% block edit_video %}
+	        {{parent()}}
+	        {% endblock %}
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+<!-- Modal Eliminar Video -->
+	<div class="modal fade" id="deleteVideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel">Eliminar Video</h4>
+	      </div>
+	      <div class="modal-body">
+	        {% use 'PCVDemoBundle:Edit:video.html.twig' %}
+	          {% block delete_video %}
+	          {{parent()}}
+	          {% endblock %}
+	      </div>
+	    </div>
+	  </div>
+	</div>
+{% endblock %}
+
+
+
+{% block modal_share_cv %}
+<!-- Modal Download CV -->
+<div class="modal fade" id="share_perfil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      	<div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        	<h4 class="modal-title" id="myModalLabel"><i class="fa fa-share-alt"></i>&nbsp;Compartir Curriculum</h4>
+      	</div>
+      <div class="modal-body">
+        {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+        {% block select_share_profile %}
+            {{ parent() }}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,143 @@
+{% block profession_private %}
+<div class="panel">
+	<div class="panel-heading">
+		<h3 class="panel-title">Profesión
+			<button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#profesion">
+				<i class="fa fa-pencil"></i>
+			</button>
+		</h3>
+	</div>
+
+	<div class="panel-body">
+	{% block profession_public %}
+		<h2 class="text-center text-muted">
+			{% if datosU.name %}<strong>{{datosU.name}}</strong>
+			{% else %}<em>Agregar Nombre</em>
+			{% endif %}
+		</h2>
+		<h2 class="text-center text-muted min-sp">
+			{% if datosD and datosD.profesion %}
+				{{datosD.profesion}}
+			{% else %}
+				<em>Carrera, Ocupación o Profesión</em>
+			{% endif %}
+		</h2>
+		<h4 class="text-center text-muted min-sp">
+			{% if datosD and datosD.profesionsecond %}
+                <em>{{ datosD.profesionsecond }}</em>
+	        {% else %}
+	        	<em>Títulos Secundarios</em>
+	        {% endif %}
+		</h4>
+		
+		{% if datosD and (datosD.level is not empty or datosD.actual is not empty) %}
+			<h6 class="division"></h6>
+		{% endif %}
+		
+		{% if datosD and datosD.level %}
+			<h4 class="text-center text-muted">
+				<i class="fa fa-graduation-cap muted" data-toggle="tooltip" data-placement="left" title="Nivel Educación Superior"></i>
+			 	 {{datosD.level}}
+			</h4> 	
+		{% endif %}
+
+		{% if datosD and datosD.actual %}
+			<h4 class="text-center text-muted">
+				<i class="fa fa-briefcase muted" data-toggle="tooltip" data-placement="left" title="Empresa o Proyecto Actual"></i>
+			 	 {{datosD.actual}}
+			</h4>
+		{% endif %}
+
+		<h6 class="division"></h6>
+
+		<h5 class="text-center">
+		{% if datosU.email %}
+			<a href="mailto:{{datosU.email}}">
+				<i class="fa fa-envelope fa-lg muted" data-toggle="tooltip" data-placement="top" title="Correo Electrónico"></i>&nbsp;
+				<em>{{datosU.email}}</em>
+			</a>
+		{% endif %}
+
+		&emsp;-&emsp;
+
+		{% if app.user %}
+			<a href="{{ path('_private_resume_public', {'url': datosU.resumenUrl })}}">
+				<i class="fa fa-globe fa-lg muted" data-toggle="tooltip" data-placement="left" title="Sitio Web"></i>
+				&nbsp;
+				<em>tucv.cl/{{datosU.resumenUrl}}</em>
+			</a>
+		{% else %}
+			<a  href="{{ path('_resume_public', {'url': datosU.resumenUrl })}}">
+				<i class="fa fa-globe fa-lg muted" data-toggle="tooltip" data-placement="left" title="Sitio Web"></i>&nbsp;
+				<em>tucv.cl/{{datosU.resumenUrl}}</em>
+			</a>
+		{% endif %}
+	
+		
+
+		{% if datosD and datosD.phone %}
+		&emsp;-&emsp;
+			<a>
+				<i class="fa fa-phone fa-lg muted" data-toggle="tooltip" data-placement="top" title="fono"></i>
+				&nbsp;
+				<em>{{datosD.phone}}</em>
+			</a>
+		{% endif %}
+
+		</h5>
+		<h6 class="clearfix"></h6>
+
+		<h6 class="division"></h6>
+
+		<h5 class="text-center">
+
+			{% if datosD and datosD.videoUrl %}
+				{% use 'PCVDemoBundle:Show:video.html.twig' %}
+			    {% block video_public %}
+			        {{parent()}}
+			    {% endblock %}
+			{% endif %}
+{#}
+			<a type="button" class="btn btn-default" href="#" data-toggle="modal" data-target="#download_perfil">
+				<i class="fa fa-download"></i>&nbsp;Descargar
+			</a>
+#}
+			<a type="button" class="btn btn-default" href="#" data-toggle="modal" data-target="#share_perfil">
+				<i class="fa fa-share-square-o"></i>&nbsp;Compartir
+			</a>
+		</h5>
+
+		{% if datosD and datosD.redes is not empty %}
+			<h6 class="division"></h6>
+          	<h5 class="text-center">
+				{% use 'PCVDemoBundle:Show:redes.html.twig' %}
+				{% block red_public %}
+					{{parent()}}
+				{% endblock %}
+			</h5>
+		{% endif %}
+	{% endblock %}
+	</div>
+</div>
+{% endblock %}
+
+
+{% block modal_profession  %}
+<!-- Modal -->
+<div class="modal fade" id="profesion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Editar Datos Profesionales</h4>
+      </div>
+      <div class="modal-body">
+        {% use 'PCVDemoBundle:Edit:profesion.html.twig' %}
+        {% block edit_profession %}
+        {{parent()}}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

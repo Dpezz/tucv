@@ -1,0 +1,85 @@
+{% extends 'PCVDemoBundle:Plantillas:page.html.twig' %} 
+
+{% block title 'tuCV | Solicitar Restablecer Contraseña'  %}
+
+{% block navbar %}
+	{% embed 'PCVDemoBundle:Plantillas:pagenav.html.twig' %}
+		{% block navbar %}
+			{{parent()}}
+		{% endblock %}
+	{% endembed %}
+{% endblock %}
+
+
+{% block contenido %}
+<div class="container">
+{# alerta resultado del formulario #}
+    {% if flag == 1 %}
+        <div id="alert" class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <i class="fa fa-check-circle"></i>&nbsp;<strong>Finalizado!</strong>&nbsp;Se ha enviado un email a su Correo Electrónico
+        </div>
+    {% elseif flag == 0 %}
+        <div id="alert" class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <i class="fa fa-times-circle"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;ocurrio un error al enviar el email
+        </div>
+    {% elseif flag == 2 %}
+        <div id="alert" class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <i class="fa fa-times-circle"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;Correo Electrónico no registrado
+        </div>
+    {% endif %}
+
+
+	<div class="page-header">
+		<h2 class="text-muted">Recupera tu contraseña.</h2>
+	</div>
+
+	<section>
+		<div class="alert alert-info" role="alert">
+			<i class="fa fa-info-circle fa-lg"></i>&nbsp;Solicita restabler tu contraseña ingresando tu correo electrónico, se enviara un email con las instrucciones al correo electrónico ingresado para restableser tu contraseña.<br>
+		</div>
+
+		<form action="{{ path('_edit_resend') }}" method="POST" role="form">
+			<div class="form-group">
+					<label class="text-muted">Correo Electrónico</label>
+					<input type="email" class="form-control" name="_email" placeholder="Correo Electrónico" required autofocus>
+			</div>
+			
+			<div class="modal-footer">
+		        <button type="submit" class="btn btn-default">
+		        	<i class="fa fa-share"></i>&nbsp;Recuperar Contraseña
+		        </button>
+		    </div>
+		</form>
+	</section>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	exist();
+    function exist(){
+        if($('#alert') != null ){
+        setTimeout(function(){ $('#alert').hide(1000); }, 5000);
+        }
+    };
+});
+ </script>
+{% endblock %}
+
+
+{% block footer_page %}
+    <!-- mostramos el texto de cabecera  -->
+    {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+    {% block footer %}
+      {{parent()}}
+    {% endblock %}
+    <!-- end embed -->
+{% endblock %}

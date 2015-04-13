@@ -1,0 +1,76 @@
+{% extends 'PCVDemoBundle:Plantillas:page.html.twig' %} 
+
+{% block title 'tucv - Únete y sé parte del cambio'  %}
+
+{% block navbar %}
+  {% embed 'PCVDemoBundle:Plantillas:pagenav.html.twig' %}
+      {% block navbar %}
+        {{parent()}}
+      {% endblock %}
+  {% endembed %}
+{% endblock %}
+
+
+{% block contenido %}
+  <div class="jumbotron" style="background: url('{{asset('bundles/pcvdemo/image/home.png')}}'); width:100%">
+    <br>
+      {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+      {% block home %}
+        {{parent()}}
+      {% endblock %}
+    <br>
+  </div>
+
+
+
+  <div id="features" class="jumbotron" style="background-color:#f5f5f5">
+
+    {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+    {% block features %}
+        {{parent()}}
+    {% endblock %}
+
+  </div>
+
+
+
+  <div id="about" class="jumbotron" style="background-color:#fff">
+
+    {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+    {% block about %}
+        {{parent()}}
+    {% endblock %}
+
+  </div>
+
+
+{#}
+  <div class="jumbotron" style="background-color:#f5f5f5">
+      {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+      {% block contacto %}
+          {{parent()}}
+      {% endblock %}
+  </div>
+#}
+
+  {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+  {% block footer %}
+      {{parent()}}
+  {% endblock %}
+
+
+  {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+  {% block modallogin %}
+      {{parent()}}
+  {% endblock %}
+
+
+  {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+  {% block modalsignup %}
+      {{parent()}}
+  {% endblock %}
+
+{% endblock %}
+
+
+

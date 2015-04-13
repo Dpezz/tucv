@@ -1,0 +1,245 @@
+{% block edit_data %}
+<form action="{{ path('_edit_datos') }}" method="POST" role="form" name="editar">
+	<div class="row">
+		<div class="col-md-1">
+			<i class="fa fa-gift" data-toggle="tooltip" data-placement="top" title="Cumpleaños"></i>
+		</div>
+
+		<div class="col-md-3">
+			<select class="form-control" name="_dia" required>
+				<option value="">Dia:</option>
+				{% for i in 1..31 %}
+				<option {% if datosD and datosD.birthday|date('d') == i %}selected{% endif %}>{{i}} </option>
+				{% endfor %}
+			</select>		    
+		</div>
+	
+		<div class="col-md-4">
+			<select class="form-control" name="_mes" required>
+				<option value=""{% if datosD and datosD.birthday|date('m') == 00 %}selected{% endif %}>Mes:</option>
+				<option value="01"{% if datosD and datosD.birthday|date('m') == 01 %}selected{% endif %}>Enero</option>
+				<option value="02"{% if datosD and datosD.birthday|date('m') == 02 %}selected{% endif %}>Febrero</option>
+				<option value="03"{% if datosD and datosD.birthday|date('m') == 03 %}selected{% endif %}>Marzo</option>
+				<option value="04"{% if datosD and datosD.birthday|date('m') == 04 %}selected{% endif %}>Abril</option>
+				<option value="05"{% if datosD and datosD.birthday|date('m') == 05 %}selected{% endif %}>Mayo</option>
+				<option value="06"{% if datosD and datosD.birthday|date('m') == 06 %}selected{% endif %}>Junio</option>
+				<option value="07"{% if datosD and datosD.birthday|date('m') == 07 %}selected{% endif %}>Julio</option>
+				<option value="08"{% if datosD and datosD.birthday|date('m') == 08 %}selected{% endif %}>Agosto</option>
+				<option value="09"{% if datosD and datosD.birthday|date('m') == 09 %}selected{% endif %}>Septiembre</option>
+				<option value="10"{% if datosD and datosD.birthday|date('m') == 10 %}selected{% endif %}>Octubre</option>
+				<option value="11"{% if datosD and datosD.birthday|date('m') == 11 %}selected{% endif %}>Noviembre</option>
+				<option value="12"{% if datosD and datosD.birthday|date('m') == 12 %}selected{% endif %}>Diciembre</option>				
+			</select>		        		
+		</div>
+		<div class="col-md-3">
+			<select class="form-control" name="_año" required>
+				<option value="">Año:</option>
+				{% for i in 1940..2000 %}
+				<option {% if datosD and datosD.birthday|date('Y') == i %}selected{% endif %}>{{i}}</option>
+				{% endfor %}
+			</select>		        		
+		</div>
+	</div>
+	<br>				
+	<div class="row">
+		<div class="col-md-1">
+			<i class="fa fa-home" data-toggle="tooltip" data-placement="top" title="Domicilio"></i>
+		</div>
+		<div class="col-md-11">
+			<input type="text" class="form-control input-sm" id="address" name="_address" placeholder="Domicilio" 
+			value="{% if datosD and datosD.address is not empty %}{{datosD.address}}{% endif %}"/>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-1">
+			<i class="fa fa-map-marker" data-toggle="tooltip" data-placement="top" title="Región"></i>
+		</div>
+		<div class="col-md-5">
+			<select class="form-control input-sm" id="region" name="_region">
+				<option value=""{% if datosD and datosD.region is empty %}selected{% endif %}>Región</option>	
+				<option value="Arica y Parinacota"{% if datosD and datosD.region == 'Arica y Parinacota' %}selected{% endif %}>Arica y Parinacota</option>
+				<option value="Tarapacá"{% if datosD and datosD.region == 'Tarapacá' %}selected{% endif %}>Tarapacá</option>
+				<option value="Antofagasta"{% if datosD and datosD.region == 'Antofagasta' %}selected{% endif %}>Antofagasta</option>
+				<option value="Atacama"{% if datosD and datosD.region == 'Atacama' %}selected{% endif %}>Atacama</option>
+				<option value="Coquimbo"{% if datosD and datosD.region == 'Coquimbo' %}selected{% endif %}>Coquimbo</option>
+				<option value="Valparaíso"{% if datosD and datosD.region == 'Valparaíso' %}selected{% endif %}>Valparaíso</option>
+				<option value="Ohiggins"{% if datosD and datosD.region == 'Ohiggins' %}selected{% endif %}>Ohiggins</option>
+				<option value="Maule"{% if datosD and datosD.region == 'Maule' %}selected{% endif %}>Maule</option>
+				<option value="Bío Bío"{% if datosD and datosD.region == 'Bío Bío' %}selected{% endif %}>Bío Bío</option>
+				<option value="Araucanía"{% if datosD and datosD.region == 'Araucanía' %}selected{% endif %}>Araucanía</option>
+				<option value="Los Ríos"{% if datosD and datosD.region == 'Los Ríos' %}selected{% endif %}>Los Ríos</option>
+				<option value="Los Lagos"{% if datosD and datosD.region == 'Los Lagos' %}selected{% endif %}>Los Lagos</option>
+				<option value="Aysen"{% if datosD and datosD.region == 'Aysen' %}selected{% endif %}>Aysen</option>
+				<option value="Magallanes y Antártica"{% if datosD and datosD.region == 'Magallanes y Antártica' %}selected{% endif %}>Magallanes y Antártica</option>
+				<option value="Metropolitana"{% if datosD and datosD.region == 'Metropolitana' %}selected{% endif %}>Metropolitana</option>
+			</select>
+        </div>
+
+		<div class="col-md-1">
+			<i class="fa fa-map-marker" data-toggle="tooltip" data-placement="top" title="Comuna"></i>
+		</div>
+		<div class="col-md-5">
+			<select class="form-control input-sm" id="city" name="_city" disabled="disabled">
+			</select>
+        </div>
+	</div>		
+	<br>
+	<div class="row">
+		<div class="col-md-1">
+			<i class="fa fa-globe" data-toggle="tooltip" data-placement="top" title="Nacionalidad"></i>
+		</div>
+		<div class="col-md-5">
+			<input type="text" class="form-control input-sm" id="nationality" name="_nationality" placeholder="Nacionalidad" 
+			value="{% if datosD and datosD.nationality is not empty %}{{datosD.nationality}}{% endif %}" pattern="^[a-zA-ZñÑáéíóú]+"/>
+		</div>
+		<div class="col-md-1">
+			<i class="fa fa-phone-square" data-toggle="tooltip" data-placement="top" title="Celular Ej: +56912345678"></i>
+		</div>
+		<div class="col-md-5">
+			<input type="text" class="form-control input-sm" id="phone" name="_phone" placeholder="Celular Ej: +56912345678"
+			value="{% if datosD and datosD.phone is not empty %}{{datosD.phone}}{% endif %}" 
+			pattern="^[+]569[0-9]{8}"/>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-1">	
+			<i class="fa fa-heart" data-toggle="tooltip" data-placement="top" title="Estado"></i>
+		</div>
+		<div class="col-md-5">  
+    		<select class="form-control" name="_status">
+           		<option value=""{% if datosD and datosD.status == "Estado:" %}selected{% endif %}>Estado:</option>
+            	<option value="Soltero"{% if datosD and datosD.status == "Soltero" %}selected{% endif %}>Soltero</option>
+            	<option value="Casado"{% if datosD and datosD.status == "Casado" %}selected{% endif %}>Casado</option>
+            	<option value="Divorciado"{% if datosD and datosD.status == "Divorciado" %}selected{% endif %}>Divorciado</option>
+            	<option value="Viudo"{% if datosD and datosD.status == "Viudo" %}selected{% endif %}>Viudo</option>
+     		</select>
+		</div>
+		<div class="col-md-1">	
+			<i class="fa fa-male" data-toggle="tooltip" data-placement="top" title="Sexo"></i>
+		</div>
+		<div class="col-md-5">  
+	    	<select class="form-control" name="_sex">
+	           	<option value=""{% if datosD and datosD.sex is empty %}selected{% endif %}>Sexo:</option>
+	            <option value="masculino"{% if datosD and datosD.sex == "masculino" %}selected{% endif %}>Masculino</option>
+	            <option value="femenino"{% if datosD and datosD.sex == "femenino" %}selected{% endif %}>Femenino</option>
+	     	</select>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-1">	
+			<i class="fa fa-car" data-toggle="tooltip" data-placement="top" title="Licencias Conducir"></i>
+		</div>
+		<div class="col-md-5">  
+    		<input type="text" class="form-control input-sm" id="licencia" name="_licencia" placeholder="Licencia Conducir" 
+    		{% if datosD and datosD.licencia %}value="{{ datosD.licencia }}{% endif %}"/>
+		</div>
+		<div class="col-md-1">	
+			<i class="fa fa-refresh" data-toggle="tooltip" data-placement="top" title="Disposición Inmediata"></i>
+		</div>
+		<div class="col-md-5">  
+	    	<div class="checkbox">
+			    <label>
+			    	{% if datosD and datosD.disponible %}
+			      		<input type="checkbox" id="disponible" name="_disponible" checked="checked"> Disposición Inmediata
+			      	{% else %}
+			      		<input type="checkbox" id="disponible" name="_disponible"> Disposición Inmediata
+			      	{% endif %}
+			    </label>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+	    <button type="submit" class="btn btn-blue" id="name">Guardar</button>
+	    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	</div>
+</form>	
+{% endblock %}
+
+
+{% block edit_bio %}
+<form action="{{ url('_edit_bio') }}" method="POST" role="form">
+	{% if datosD and datosD.bio %}
+		<textarea class="form-control" name="_bio" rows="5" placeholder="Hola soy {{datosU.name}}...">{{datosD.bio}}</textarea>
+	{% else %}
+		<textarea class="form-control" name="_bio" rows="5" placeholder="Hola soy {{datosU.name}}..."></textarea>
+	{% endif %}
+	<div class="modal-footer">
+	    <button type="submit" class="btn btn-blue" id="name">Guardar</button>
+	    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	</div>
+</form>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+{% if datosD and datosD.region is not empty %}
+	$.ajax({
+   			url: '{{url('_load_city')}}',
+        	method: "post",
+        	data:{'region_': '{{datosD.region}}' },
+	        success: function(item){
+	        	var ciudades = item.split(',');
+
+				$("<option value=''>Comuna</option>").appendTo("#city");
+	        	for (var i = 0; i < ciudades.length; i++) {
+	        		if(ciudades[i] == '{{datosD.city}}'){
+						$("<option value='"+ciudades[i]+"' selected>"+ciudades[i]+"</option>").appendTo("#city");
+					}
+					else{
+						$("<option value='"+ciudades[i]+"'>"+ciudades[i]+"</option>").appendTo("#city");
+					}
+	           	};
+	        }
+	});
+	enable();
+{% else %}
+	$("<option>Comuna</option>").appendTo("#city");
+{% endif %}
+
+	$('#region').change(function(){
+		var region = $('#region').val().trim();
+
+		if (region.length > 0) {
+			enable();
+			removeData();
+			
+			$.ajax({
+   			url: '{{url('_load_city')}}',
+        	method: "post",
+        	data:{'region_': region},
+	        success: function(item){
+	        	var ciudades = item.split(',');
+
+				$("<option value=''>Comuna</option>").appendTo("#city");
+	        	for (var i = 0; i < ciudades.length; i++) {
+					$("<option value='"+ciudades[i]+"'>"+ciudades[i]+"</option>").appendTo("#city");
+	           	};
+	        }
+	    	});
+		
+		}else{
+			disable();
+			removeData();
+			$("<option value=''>Comuna</option>").appendTo("#city");
+		};
+	});
+
+	function removeData(){
+		$('#city').html('');
+	};
+	function disable(){
+		$('#city').attr('disabled','disabled');
+	};
+	function enable(){
+		$('#city').removeAttr('disabled');
+	};
+
+
+});
+</script>
+
+{% endblock %}

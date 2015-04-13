@@ -1,0 +1,133 @@
+{% block finder %}
+{% if cantidad != 0  %}
+	{% for users in datosU|slice(0,30)|batch(3) %}
+		<div class="row">
+			{% for user in users %}
+
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<div class="panel-body">
+						<div class="col-xs-4 col-sm-4 col-md-4">
+							{% if user.imagenUrl is not empty %}
+								{% if app.user %}
+								<a href="{{ path('_private_resume_public', {'url': user.resumenUrl }) }}">
+									<img href ="#" src="{{asset('img/profile/'~ user.imagenUrl )}}" class="img-circle" width="100%">
+								</a>
+								{% else %}
+								<a href="{{ path('_resume_public', {'url': user.resumenUrl }) }}">
+									<img href ="#" src="{{asset('img/profile/'~ user.imagenUrl )}}" class="img-circle" width="100%">
+								</a>
+								{% endif %}
+							{% else %}
+								{% if app.user %}
+								<a href="{{ path('_private_resume_public', {'url': user.resumenUrl }) }}">
+									<img href ="#" src="{{asset('bundles/pcvdemo/image/noimagen.png')}}" class="img-circle" width="100%">
+								</a>
+								{% else %}
+								<a href="{{ path('_resume_public', {'url': user.resumenUrl }) }}">
+									<img href ="#" src="{{asset('bundles/pcvdemo/image/noimagen.png')}}" class="img-circle" width="100%">
+								</a>
+								{% endif %}
+							{% endif %}
+						</div>
+						<div class="col-xs-8 col-sm-8 col-md-8">
+							{% set name = user.username|split(' ') %}
+							{% if app.user %}
+							<a href="{{ path('_private_resume_public', {'url': user.resumenUrl }) }}">
+								<h5 class="text-info"><strong> {{name|first }} {{user.plastname}} {{user.mlastname}}</strong></h5>
+							</a>
+							{% else %}
+							<a href="{{ path('_resume_public', {'url': user.resumenUrl }) }}">
+								<h5 class="text-info"><strong> {{name|first }} {{user.plastname}} {{user.mlastname}}</strong></h5>
+							</a>
+							{% endif %}
+							<h5 class="text-muted"> {{user.profesion}} </h5>
+						</div>
+					</div>
+
+				</div>
+			{% endfor %}
+		</div>
+		<h6 class="division"></h6>
+	{% endfor %}
+{% else %}
+	<div class="panel panel-body">
+		<h4 class="text-center text-muted">
+			<i class="fa fa-exclamation-circle yellow"></i>
+			&nbsp;No se encontraron resultados...
+		</h4>
+	</div>
+{% endif %}
+
+
+<br>
+
+	<div class="panel" style="background-color:#f5f5f5; border-color:#ddd" id="pager">
+		<ul class="pager">
+			{% if page > 0 %}
+				{% if app.user %}
+					{% if type == 0 %}
+		  				<li><a href="{{path('_search_private',{'page':page - 1,'search':search})}}"><i class="fa fa-arrow-left fa-lg"></i></a></li>
+	  				{% elseif type == 1 %}
+		  				<li><a href="{{path('_search_idioma_private',{'page':page - 1,'search':search})}}"><i class="fa fa-arrow-left fa-lg"></i></a></li>
+	  				{% elseif type == 2 %}
+		  				<li><a href="{{path('_search_skill_private',{'page':page - 1,'search':search})}}"><i class="fa fa-arrow-left fa-lg"></i></a></li>
+	  				{% elseif type == 3 %}
+		  				<li><a href="{{path('_search_competencia_private',{'page':page - 1,'search':search})}}"><i class="fa fa-arrow-left fa-lg"></i></a></li>
+	  				{% elseif type == 4 %}
+		  				<li><a href="{{path('_search_advanced_private',{'page':page - 1,'search':search})}}"><i class="fa fa-arrow-left fa-lg"></i></a></li>
+		  			{% endif %}
+	  			{% else %}
+					{% if type == 0 %}
+		  				<li><a href="{{path('_search_public',{'page':page - 1,'search':search})}}"><i class="fa fa-arrow-left fa-lg"></i></a></li>
+	  				{% elseif type == 1 %}
+		  				<li><a href="{{path('_search_idioma_public',{'page':page - 1,'search':search})}}"><i class="fa fa-arrow-left fa-lg"></i></a></li>
+	  				{% elseif type == 2 %}
+		  				<li><a href="{{path('_search_skill_public',{'page':page - 1,'search':search})}}"><i class="fa fa-arrow-left fa-lg"></i></a></li>
+	  				{% elseif type == 3 %}
+		  				<li><a href="{{path('_search_competencia_public',{'page':page - 1,'search':search})}}"><i class="fa fa-arrow-left fa-lg"></i></a></li>
+	  				{% elseif type == 4 %}
+		  				<li><a href="{{path('_search_advanced_public',{'page':page - 1,'search':search})}}"><i class="fa fa-arrow-left fa-lg"></i></a></li>
+		  			{% endif %}
+	  			{% endif %}
+	  		{% endif %}
+
+
+	  		{% if cantidad > 20 %}
+	  			{% if app.user %}
+					{% if type == 0 %}
+	  					<li><a href="{{path('_search_private',{'page':page + 1,'search':search})}}"><i class="fa fa-arrow-right fa-lg"></i></a></li>
+	  				{% elseif type == 1 %}
+		  				<li><a href="{{path('_search_idioma_private',{'page':page + 1,'search':search})}}"><i class="fa fa-arrow-right fa-lg"></i></a></li>
+	  				{% elseif type == 2 %}
+		  				<li><a href="{{path('_search_skill_private',{'page':page + 1,'search':search})}}"><i class="fa fa-arrow-right fa-lg"></i></a></li>
+	  				{% elseif type == 3 %}
+		  				<li><a href="{{path('_search_competencia_private',{'page':page + 1,'search':search})}}"><i class="fa fa-arrow-right fa-lg"></i></a></li>
+	  				{% elseif type == 4 %}
+		  				<li><a href="{{path('_search_advanced_private',{'page':page + 1,'search':search})}}"><i class="fa fa-arrow-right fa-lg"></i></a></li>
+					{% endif %}
+	  			{% else %}
+					{% if type == 0 %}
+	  					<li><a href="{{path('_search_public',{'page':page + 1,'search':search})}}"><i class="fa fa-arrow-right fa-lg"></i></a></li>
+	  				{% elseif type == 1 %}
+		  				<li><a href="{{path('_search_idioma_public',{'page':page+ 1,'search':search})}}"><i class="fa fa-arrow-right fa-lg"></i></a></li>
+	  				{% elseif type == 2 %}
+		  				<li><a href="{{path('_search_skill_public',{'page':page+ 1,'search':search})}}"><i class="fa fa-arrow-right fa-lg"></i></a></li>
+	  				{% elseif type == 3 %}
+		  				<li><a href="{{path('_search_competencia_public',{'page':page+ 1,'search':search})}}"><i class="fa fa-arrow-right fa-lg"></i></a></li>
+	  				{% elseif type == 4 %}
+		  				<li><a href="{{path('_search_advanced_public',{'page':page+ 1,'search':search})}}"><i class="fa fa-arrow-right fa-lg"></i></a></li>
+					{% endif %}
+	  			{% endif %}
+	  		{% endif %}
+		</ul>
+	</div>
+
+
+
+<script type="text/javascript">
+	{% if page == 0 and cantidad <= 20 %}
+	$('#pager').hide();
+	{% endif %}
+</script>
+
+{% endblock %}

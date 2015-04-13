@@ -1,0 +1,187 @@
+{% block navbar %}
+<script src="{{ asset('bundles/pcvdemo/js/jquery-1.10.2.min.js') }}"></script>    
+  
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header"
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand blue-color" href="{{path('_private_resume_profile')}}">
+               <img class="navbar-brand" src="{{ asset('bundles/pcvdemo/image/logo.png') }}">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+
+    {% if app.user %}
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-left">
+            {#}  
+                <li id="empleo" data-toggle="tooltip" data-placement="bottom" title="Ofertas de Trabajo">
+                        <a><i class="fa fa-briefcase fa-lg grayDisable"></i></a>
+                </li>
+            #}
+                <li id="eye" data-toggle="tooltip" data-placement="bottom" title="Visitas">
+                    <a><i class="fa fa-eye fa-lg info"></i> <span class="badge s">{{app.user.visitas}}</span></a>
+                </li>
+            </ul>
+            <div class="col-xs-12 col-md-4">
+                <form action="{{path('_search_private',{'page':0})}}" class="navbar-form navbar-left" style="margin-top: 2px;" role="search" method="POST">
+                    <div class="input-group group-nav">
+                        <input type="text" class="form-control" name="_search" placeholder="Buscar curriculum">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-info" type="submit" data-toggle="tooltip" data-placement="bottom" title="Buscar"><i class="fa fa-search white"></i></button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li id="envelope" data-toggle="tooltip" data-placement="bottom" title="Enviar">
+                    <a href="#" data-toggle="modal" data-target="#sendEmail"><i class="fa fa-envelope fa-lg info"></i></a>
+                </li>
+                <li id="share" class="dropdown" data-toggle="tooltip" data-placement="bottom" title="Compartir">
+                    <a href="#" data-toggle="modal" data-target="#share_cv">
+                        <i class="fa fa-share-alt fa-lg info"></i>
+                    </a>
+                </li>
+                <li id="edit" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                    <a href="{{path('_private_resume_profile')}}">
+                        <i class="fa fa-pencil fa-lg "></i>
+                    </a>
+                </li>
+                <li class="active dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {% if app.user.imagenUrl is not empty %}
+                            <img src="{{asset('img/profile/'~ app.user.imagenUrl )}}" class="img-rounded" width="35px">
+                        {% else %}
+                            <img src="{{asset('bundles/pcvdemo/image/noimagen.png')}}" class="img-rounded" width="35px">
+                        {% endif %}
+                        {{ app.user.username|trim }}
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ path('_private_resume_public', {'url': app.user.resumenUrl })}}">
+                                <i class="fa fa-file-text"></i>&nbsp;Resumen Público
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{{ path('_private_secured_account') }}">
+                                <i class="fa fa-gears"></i>&nbsp;Cuenta
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('_private_secured_password') }}">
+                                <i class="fa fa-key"></i>&nbsp;Contraseña
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{{ path('_demo_logout')}}">
+                                <i class="fa fa-sign-out"></i>&nbsp;Cerrar
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    {% else %}
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav ">
+                <li><a href="{{path('_demo_login')}}">Inicio</a></li>
+                <li><a href="{{path('_demo_login')}}#features">Caracteristicas</a></li>
+                <li><a href="{{path('_demo_login')}}#about">Nosotros</a></li>
+            </ul>
+            <div class="col-md-4">
+                <form action="{{path('_search_public',{'page':0})}}" class="navbar-form navbar-left" style="margin-top: 2px;" role="search" method="POST">
+                    <div class="input-group group-nav">
+                        <input type="text" class="form-control" name="_search" placeholder="Buscar curriculum">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-info" type="submit" data-toggle="tooltip" data-placement="bottom" title="Buscar"><i class="fa fa-search white"></i></button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <ul class="nav navbar-nav pull-right">
+                <a class="btn btn-link" type="button" href="#" data-toggle="modal" data-target="#login">Iniciar sesión</a>
+                <a type="button" class="btn btn-info navbar-btn" href="#" data-toggle="modal" data-target="#signup">Regístrate</a>
+            </ul>
+        </div>
+
+        {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+        {% block modallogin %}
+            {{parent()}}
+        {% endblock %}
+
+        {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+        {% block modalsignup %}
+            {{parent()}}
+        {% endblock %}
+
+    {% endif %}
+
+
+
+
+
+    </div><!-- end_container-->
+</nav>
+<!-- Modal -->
+ 
+<script src="{{ asset('bundles/pcvdemo/js/bootstrap/tooltip.js') }}"></script>
+<script type="text/javascript">
+
+$('#eye,#envelope,#share,#empleo,#download,#edit').tooltip();
+$('#btn_search').tooltip();
+</script>
+{% endblock %}
+
+{% block send_email %}
+<div class="modal fade" id="sendEmail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-share-square-o"></i>&nbsp;Enviar Currículum</h4>
+      </div>
+      <div class="modal-body">
+        {% embed 'PCVDemoBundle:Edit:sendEmail.html.twig' %}
+        {% block send_email %}
+        {{parent()}}
+        {% endblock %}
+        {% endembed %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+{% block share_cv %}
+<!-- Modal Download CV -->
+<div class="modal fade" id="share_cv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-share-alt"></i>&nbsp;Compartir Curriculum</h4>
+        </div>
+      <div class="modal-body">
+        {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+        {% block select_share %}
+            {{ parent() }}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

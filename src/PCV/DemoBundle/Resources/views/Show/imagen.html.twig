@@ -1,0 +1,10 @@
+{% block image_public %}
+
+	{% if datosU.imagenUrl is not empty %}
+		<img src="{{asset('img/profile/'~ datosU.imagenUrl )}}" class="img-circle" width="180px">
+	{% else %}
+		<img src="{{asset('bundles/pcvdemo/image/noimagen.png')}}" class="img-circle" width="180px">
+	{% endif %}
+
+	<hr>
+{% endblock %}

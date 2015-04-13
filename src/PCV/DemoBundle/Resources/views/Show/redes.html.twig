@@ -1,0 +1,26 @@
+{% block red_public %}
+
+	{% if datosD and datosD.redes is not empty %}
+		{% set variables = {'facebook':'btn-blue','twitter':'btn-sky','google':'btn-red','youtube':'btn-red-light','instagram':'btn-brown','pinterest':'btn-red','flickr':'btn-rosa','tumblr':'btn-blue-dark','soundcloud':'btn-warning','linkedin':'btn-blue-light'} %}
+
+		{% set elementos = datosD.redes|split('}') %}
+			{% for element in elementos %}
+				{% set valor = element|split('{') %}
+					{% if valor|first is not empty %}
+
+			            <span class="fa-stack" data-toggle="tooltip" title="{{valor|first}}" >
+			            	<a href="{{valor|last}}" target="_blank">
+				              <i class="fa fa-circle fa-stack-2x gray"></i>
+				              <i class="fa fa-{{valor|first }} fa-stack-1x white"></i>
+				          </a>
+			            </span>
+
+					{% endif %}
+			{% endfor %}
+	{% else %}<p><i class="fa fa-plus-square" data-toggle="modal" data-target="#redes"></i> Agrega Redes Sociales</p>
+	{% endif %}
+	
+{% endblock %}
+
+
+

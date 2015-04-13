@@ -1,0 +1,199 @@
+{% extends 'PCVDemoBundle:Plantillas:page.html.twig' %} 
+
+{% block title 'tuCV | Configuración'  %}
+
+{% block navbar %}
+	{% embed 'PCVDemoBundle:Plantillas:pagenav.html.twig' %}
+		{% block navbar %}
+			{{parent()}}
+		{% endblock %}
+	{% endembed %}
+{% endblock %}
+
+
+{% block contenido %}
+
+<div class="container">
+{# alerta resultado del formulario #}
+    {% if flag == 1 %}
+        <div id="alert" class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <i class="fa fa-check-circle"></i>&nbsp;<strong>Finalizado!</strong>&nbsp;cambios realizados con exito
+        </div>
+    {% elseif flag == 0 %}
+        <div id="alert" class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <i class="fa fa-times-circle"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;ocurrio un error al guardar los cambios
+        </div>
+    {% elseif flag == 2 %}
+        <div id="alert" class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <i class="fa fa-times-circle"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;Contraseña ingresada NO es válida
+        </div>
+     {% elseif flag == 3 %}
+        <div id="alert" class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <i class="fa fa-times-circle"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;Email ingresado, ya existe
+        </div>
+    {% endif %}
+
+	<div class="page-header">
+		<h2 class="text-muted"> Configuración: <small><em>Cuenta</em></small></h2>
+	</div>
+
+
+		<section>
+			<form action="{{ path('_edit_cuenta') }}" method="POST" role="form">
+
+				<div class="page-header">
+					<h5 class="text-primary">Editar Nombre.</h5>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form_group">
+							<label class="text-muted">Nombre</label>
+							<input type="text" class="form-control" name="_username" placeholder="Nombre" value="{{datosU.username}}" required autofocus/>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="form_group">
+							<label class="text-muted">Apellido Paterno</label>
+							<input type="text" class="form-control"  name="_plastname" placeholder="Apellido Paterno" value="{{datosU.plastname}}" required />
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="form_group">
+							<label class="text-muted">Apellido Materno</label>
+							<input type="text" class="form-control" name="_mlastname" placeholder="Apellido Materno" value="{{datosU.mlastname}}" required/>
+						</div>
+					</div>
+				</div>
+
+				<br>
+
+				<div class="modal-footer">
+		        	<button type="submit" class="btn btn-default">
+		        		<i class="fa fa-user"></i>&nbsp;Guardar
+		        	</button>
+			    </div>
+			</form>
+		</section>
+
+
+		<section>
+			<form id="formEmail" action="{{path('_edit_email')}}" method="post" role="form" 
+                data-fv-message="This value is not valid"
+                data-fv-icon-valid="glyphicon glyphicon-ok"
+                data-fv-icon-invalid="glyphicon glyphicon-remove"
+                data-fv-icon-validating="glyphicon glyphicon-refresh">
+
+                <div class="page-header">
+					<h5 class="text-primary">Editar Email.</h5>
+				</div>
+
+				<div class="form-group">
+			 		<label class="text-info">Email</label>
+			    	<input type="email" name="_email" class="form-control" placeholder="Email"  value="{{datosU.email}}" required autofocus>
+			    </div>
+
+			    <div class="form-group">
+			    <label class="text-info">Confirmar Email</label>
+			    	<input type="email" name="_confirmEmail" class="form-control" placeholder="Confirmar Email" required autofocus>
+			    </div>
+
+			    <div class="modal-footer">
+			    	<button id="btn-email" class="btn btn-default" type="submit"><i class="fa fa-envelope"></i>&nbsp;Guardar</button>
+			    </div>
+			</form>
+		</section>
+
+
+		<section>
+			<div class="page-header">
+				<h5 class="text-primary">Comparte tu Resumen .</h5>
+			</div>
+
+			<div class="alert alert-info">
+				<h5>
+					<i class="fa fa-globe fa-lg"></i>
+					&nbsp;Url: <em class="text-primary">http://www.tucv.cl/{{datosU.resumenUrl}}</em>
+				</h5>
+			</div>
+		</section>
+
+			
+		<div class="modal-footer">
+			<a type="button" class="btn btn-default active" href="{{ path('_private_secured_account') }}"><i class="fa fa-globe"></i>&nbsp;Cuenta</a>
+
+			<a type="button" class="btn btn-default" href="{{ path('_private_secured_password') }}"><i class="fa fa-lock"></i>&nbsp;Contraseña</a>
+		</div>
+
+
+</div>
+<script src="{{ asset('bundles/pcvdemo/plugin/validator/js/formValidation.js') }}"></script>
+<script src="{{ asset('bundles/pcvdemo/plugin/validator/js/framework/bootstrap.js') }}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	exist();
+		
+ 		
+    $('#formEmail').formValidation({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            _email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Correo electrónico no puede estar vacío'
+                    }
+                }
+            },
+            _confirmEmail: {
+                validators: {
+                    notEmpty: {
+                        message: 'Correo electrónico no puede estar vacío'
+                    },
+                    identical: {
+                        field: '_email',
+                        message: 'Correos electrónicos no coinciden'
+                    }
+                }
+            }
+        }
+    });
+
+    function exist(){
+        if($('#alert') != null ){
+            setTimeout(function(){ $('#alert').hide(1000); }, 5000);
+        }
+    };
+});
+
+</script>
+{% endblock %}
+
+{% block footer_page %}
+
+    <!-- mostramos el texto de cabecera  -->
+    {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+    {% block footer %}
+        {{parent()}}
+    {% endblock %}
+    <!-- end embed -->
+
+{% endblock %}

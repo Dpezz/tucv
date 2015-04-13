@@ -1,0 +1,225 @@
+{% block edit_project %}
+<form action="{{ path('_edit_project') }}" method="POST" role="form">
+	{% if datosP %}
+		<div class="panel-group" id="accordionProyectos">
+		{% for proy in datosP %}
+		
+			<div id="panelProyectos{{loop.index}}" class="panel panel-primary">
+			    <div class="panel-heading">
+			      	<h4 class="panel-title text-center">
+			        	<a data-toggle="collapse" data-parent="#accordionProyectos" href="#ProyectosEdit{{ loop.index }}">
+			        	<span class="badge pull-left">{{ loop.index }}</span>
+						 {{ proy.title}}.
+			        	</a>
+			        	<button type="button" class="close" id="proyectosClose{{loop.index}}">&times;</button>
+			     	</h4>
+			    </div>
+			    <div id="ProyectosEdit{{ loop.index }}" class="panel-collapse collapse">
+			      	<div class="panel-body">
+					<div class="form_group">
+						<div class="well">
+							<div class="form_group">
+								<h5 class="text-center">
+									{% if proy.imagenUrl is not empty %}
+										<img src="{{asset('img/project/'~ proy.imagenUrl)}}" id="imageProject{{ loop.index }}" name="_imageProject{{ loop.index }}" class="img-thumbnail" width="45%" height="30%">
+									{% else %}
+										<img src="{{asset('bundles/pcvdemo/image/noportafolio.png')}}" id="imageProject{{ loop.index }}" name="_imageProject{{ loop.index }}" class="img-thumbnail" width="45%" height="30%">
+									{% endif %}
+								</h5>
+
+								<input type="file" id="inputImagen{{ loop.index }}" name="_inputImagen{{ loop.index }}" accept="image/*"/>
+								<input type="hidden" id="dataImagen{{ loop.index }}" name="_dataImagen{{ loop.index }}"/>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-md-5">
+								<div class="input-group">
+								<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Título"><i class="fa fa-map-marker"></i></span>
+								<input type="text" class="form-control" id="title" name="_title{{ loop.index }}" placeholder="Título del Proyecto.." value="{{proy.title}}"required/>	    
+								</div>
+							</div>
+							<div class="col-md-5">
+								<div class="input-group">
+								<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Cliente"><i class="fa fa-globe"></i></span>
+								<input type="text" class="form-control" id="cliente" name="_cliente{{ loop.index }}" placeholder="Cliente del Proyecto.." value="{{proy.cliente}}"required/>	
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					{% set meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"] %}
+					<div class="form_group">
+						<div class="row">
+							{% set item = proy.fecha|split(',') %}
+							<div class="col-md-5">
+								<div class="input-group">
+								<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Mes"><i class="fa fa-calendar"></i></span>
+								
+								<select class="form-control" name="_mes{{ loop.index }}">
+									<option {% if item|first == ' ' %}selected{% endif %} value="" >Mes:</option>
+									{% for mes in meses %}
+										<option value='{{loop.index}}' {% if item|first == loop.index %}selected{% endif %}>{{mes}}</option>
+									{% endfor %}			
+								</select>		        		
+								</div>
+							</div>
+							<div class="col-md-5">
+								<div class="input-group">
+								<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Año"><i class="fa fa-calendar"></i></span>
+								<select class="form-control" name="_año{{ loop.index }}">
+									<option {% if item|last == ' ' %}select{% endif %}>Año:</option>
+									{% for i in 2014..1940 %}
+									<option  {% if item|last == i %}selected{% endif %}>{{i}}</option>
+									{% endfor %}
+								</select>		        		
+							</div>
+							</div>
+						</div>
+						<br>
+						<div class="form_group">
+							<div class="input-group">
+								<span class="input-group-addon" data-toggle="tooltip" data-placement="right" title="Url del Proyecto. Ej. http://www.tucv.cl"><i class="fa fa-link"></i></span>
+								<input type="url" class="form-control" name="_link{{ loop.index }}" placeholder="http://" value="{{proy.link}}">
+							</div>
+						</div>
+						<br>
+						<div class="form_group">
+							<textarea class="form-control" rows="3" name="_description{{ loop.index }}" placeholder="Descripción.." required/>{{proy.descripcion}}</textarea>
+						</div>
+					</div>
+					</div>
+			    </div>
+			</div>
+		{% endfor %}
+		</div>
+		<div class="modal-footer">
+        	<button type="submit" class="btn btn-blue" id="loading-example-btn" data-loading-text="Loading...">Guardar</button>
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      	</div>
+	{% else %}
+	<p><i class="fa fa-plus-square"></i> Agrega Experiencia Profesional</p>
+	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      	</div>
+	{% endif %}
+</form>
+{% endblock %}
+
+{% block new_project %}
+<form action="{{ path('_new_project') }}" method="POST" role="form">
+	<div class="form_group">
+		<div class="well">
+			<div class="form_group">
+				<h5 class="text-center">
+					<img src="{{asset('bundles/pcvdemo/image/noportafolio.png')}}" id="imageProject" name="_imageProject" class="img-thumbnail" width="45%">
+				</h5>
+				<input type="file" id="inputImagen" name="_inputImagen" accept="image/*"/>
+				<input type="hidden" id="dataImagenProyecto" name="_dataImagenProyecto"/>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-5">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Título"><i class="fa fa-map-marker"></i></span>
+				<input type="text" class="form-control" id="title" name="_title" placeholder="Título del Proyecto.." required/>	    
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Cliente"><i class="fa fa-globe"></i></span>
+				<input type="text" class="form-control" id="cliente" name="_cliente" placeholder="Cliente del Proyecto.." required/>	
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="form_group">
+		<div class="row">
+			<div class="col-md-5">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Mes"><i class="fa fa-calendar"></i></span>
+				<select class="form-control" name="_mes" required>
+					<option value="">Mes:</option>
+					<option value="1">Enero</option>
+					<option value="2">Febrero</option>
+					<option value="3">Marzo</option>
+					<option value="4">Abril</option>
+					<option value="5">Mayo</option>
+					<option value="6">Junio</option>
+					<option value="7">Julio</option>
+					<option value="8">Agosto</option>
+					<option value="9">Septiembre</option>
+					<option value="10">Octubre</option>
+					<option value="11">Noviembre</option>
+					<option value="12">Diciembre</option>				
+				</select>		        		
+			</div>
+			</div>
+			<div class="col-md-5">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Año"><i class="fa fa-calendar"></i></span>
+				<select class="form-control" name="_año" required>
+					<option value="">Año:</option>
+					{% for i in 2014..1940 %}
+					<option value="{{i}}">{{i}}</option>
+					{% endfor %}
+				</select>		        		
+			</div>
+			</div>
+		</div>
+		<br>
+		<div class="form_group">
+			<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Url del Proyecto. Ej: http://www.tucv.cl"><i class="fa fa-link"></i></span>
+				<input type="url" class="form-control" name="_link" placeholder="http://">
+			</div>
+		</div>
+		<br>
+		<div class="form_group">
+			<textarea class="form-control" rows="3" name="_description" placeholder="Descripción.." required/></textarea>
+		</div>
+		
+	</div>
+	<div class="modal-footer">
+        	<button type="submit" class="btn btn-blue" id="name">Guardar</button>
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    $('#inputImagen').change(function(e) {
+	    var fileNew = document.getElementById("inputImagen").files[0];
+	    var readImg = new FileReader();
+	    readImg.readAsDataURL(fileNew);
+	    readImg.onload = function(e) {
+	        $('#imageProject').attr('src',e.target.result);
+	        $('#dataImagenProyecto').val(e.target.result);
+	    }
+    });
+
+    //editar image Project
+	{% if datosP %}
+		{% for proy in datosP %}
+			$('#inputImagen{{ loop.index }}').change(function(e) {
+			    var fileEdit = document.getElementById("inputImagen{{ loop.index }}").files[0];
+			    var readImgEdit = new FileReader();
+			    readImgEdit.readAsDataURL(fileEdit);
+			    readImgEdit.onload = function(e) {
+			        $('#imageProject{{ loop.index }}').attr('src',e.target.result);
+			        $('#dataImagen{{ loop.index }}').val(e.target.result);
+			    }
+		    });
+
+		  	$('#proyectosClose{{loop.index}}').click(function(){
+				$('#panelProyectos{{loop.index}}').remove();
+			});
+		{% endfor %}
+	{% endif %}
+
+
+</script>
+
+{% endblock %}

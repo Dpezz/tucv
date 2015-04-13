@@ -1,0 +1,161 @@
+{% block project_private %}  
+	
+	{% block project_public %}
+ 
+		{% if datosP %}
+			{% for proyecto in datosP|batch(4, '') %}
+			<div class="row">
+
+				{% for proy in datosP %}	
+					{% if proy is not empty%}
+					{% set meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"] %}
+					<div class="col-md-3">
+					
+						{% set fecha = proy.fecha|split(',') %}
+
+						{% if proy.imagenUrl is not empty %}
+							<h6 class="text-center">
+								{% if proy.link is not empty %}
+								<a href="{{proy.link}}" data-toggle="tooltip" data-placement="top" title="Visitar Proyecto" target="_blank">
+								{% endif %}
+						 			<img src="{{asset('img/project/'~ proy.imagenUrl)}}" class="img-thumbnail" width="250px">
+					 			{% if proy.link is not empty %}
+								</a>
+								{% endif %}
+						 		
+						 	</h6>
+					 	{% else %}
+						 	<h6 class="text-center">
+						 		{% if proy.link is not empty %}
+								<a href="{{proy.link}}" data-toggle="tooltip" data-placement="top" title="Visitar Proyecto" target="_blank">
+								{% endif %}
+						 			<img src="{{asset('bundles/pcvdemo/image/noportafolio.png')}}" class="img-thumbnail" width="250px">
+						 		{% if proy.link is not empty %}
+								</a>
+								{% endif %}
+						 	</h6>
+					 	{% endif %}
+
+
+					 	<h4 class="text-primary text-center"><strong>{{proy.title}}</strong></h4>
+					 	<h5 class="text-muted text-center">
+					 		<strong>{{proy.cliente}}</strong>
+					 	</h5>
+					 	
+					 	<h5 class="text-center">
+					 	{% if proy.descripcion is not empty %}
+					 		
+					 			<a type="button" data-toggle="tooltip" data-placement="top" title="{{proy.descripcion}}" target="_blank"><i class="fa fa-align-center fa-lg"></i>
+					 			</a>
+			 			{% endif %}
+
+			 			<strong class="label label-warning ">
+			 				{{meses[fecha|first -1]}},&nbsp;{{ fecha|last }}
+			 			</strong>
+
+
+			 			{% if proy.link is not empty %}
+					 			<a type="button" href="#" title="Compartir Proyecto" data-toggle="modal" data-target="#share_project"><i class="fa fa-share-alt fa-lg"></i>
+					 			</a>
+
+					 			<!-- Modal Download CV -->
+								<div class="modal fade" id="share_project" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								  	<div class="modal-dialog">
+									    <div class="modal-content">
+									      	<div class="modal-header">
+									        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									        	<h4 class="modal-title" id="myModalLabel"><i class="fa fa-share-alt"></i>&nbsp;Compartir Curriculum</h4>
+									      	</div>
+									      	<div class="modal-body">
+									        
+										        <div class="row">
+												    <div class="col-md-4">
+												      	<a type="button" class="btn btn-default btn-block" href="http://twitter.com/home?status=visita mi proyecto {{proy.link}}  @tucvchile" onclick="window.open(this.href, 'mywin','left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">
+												        <i class="fa fa-twitter"></i>&nbsp;Twitter</a>
+												    </div>
+												    <div class="col-md-4">
+												      	<a type="button" class="btn btn-default btn-block" href="https://plus.google.com/share?url={{proy.link}}" onclick="window.open(this.href, 'mywin','left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">
+												        <i class="fa fa-google"></i>&nbsp;Google+</a>
+												    </div>
+												    <div class="col-md-4">
+												    	<a type="button" class="btn btn-default btn-block" href='https://www.linkedin.com/shareArticle?mini=true&url={{proy.link}}'  onclick="window.open(this.href, 'mywin','left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" target='_blank'>
+											      		<i class="fa fa-linkedin"></i>&nbsp;LinkedIn
+												      	</a>
+												    </div>
+											  	</div>
+									      	</div>
+										</div>
+								  	</div>
+								</div>
+				 		{% endif %}
+					 	</h5>
+
+					</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+			{% endfor %}
+		{% else %}
+			<h5 class="text-center text-muted">
+				<a href="#" data-toggle="modal" data-target="#newProyecto">
+					<em><i class="fa fa-plus-circle"></i>&nbsp;agregar proyectos</em>
+				</a>
+			</h5>
+		{% endif %}
+	{% endblock %}
+
+	<div class="">
+		<h3 class="panel-title">
+	    	<div class="btn-group pull-right">
+			  	<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+			    	<i class="fa fa-pencil"></i> <span class="caret"></span>
+			  	</button>
+			  	<ul class="dropdown-menu" role="menu">
+			    	<li><a href="#" data-toggle="modal" data-target="#newProyecto"><i class="fa fa-briefcase"></i> nuevo Proyecto</a></li>
+			    	<li><a href="#" data-toggle="modal" data-target="#editProyecto"><i class="fa fa-pencil-square-o"></i> editar Proyectos</a></li>
+			  	</ul>
+			</div>
+	    </h3>
+	</div>
+
+{% endblock %}
+
+
+{% block modal_project %}
+<!-- Modal Edit-->
+<div class="modal fade" id="editProyecto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  	<div class="modal-dialog">
+	    <div class="modal-content">
+	      	<div class="modal-header">
+	        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        	<h4 class="modal-title" id="myModalLabel">Editar Proyectos</h4>
+	      	</div>
+	      	<div class="modal-body">
+	        	{% use 'PCVDemoBundle:Edit:proyectos.html.twig' %}
+	        	{% block edit_project %}
+		        	{{parent()}}
+	        	{% endblock %}
+	  		</div>
+		</div>
+  	</div>
+</div>
+
+<!-- Modal New-->
+<div class="modal fade" id="newProyecto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        		<h4 class="modal-title" id="myModalLabel">Nuevo Proyecto</h4>
+      		</div>
+      		<div class="modal-body">
+        		{% use 'PCVDemoBundle:Edit:proyectos.html.twig' %}
+	        	{% block new_project %}
+	        	{{parent()}}
+	        	{% endblock %}
+     		 </div>
+    	</div>
+  	</div>
+</div>
+
+{% endblock %}

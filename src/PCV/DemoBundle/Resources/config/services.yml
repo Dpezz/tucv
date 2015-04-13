@@ -1,0 +1,7 @@
+parameters:
+#    pcv_demo.example.class: PCV\DemoBundle\Example
+
+services:
+#    pcv_demo.example:
+#        class: %pcv_demo.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

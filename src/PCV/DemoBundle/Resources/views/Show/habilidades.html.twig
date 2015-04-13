@@ -1,0 +1,57 @@
+{% block ability_private %}
+
+		{% block ability_public %}
+		
+		{% if datosD and datosD.habilidades is not empty %}
+
+			{% set array = datosD.habilidades|split(',') %}
+			{% for habilidad in array %}
+				{% if habilidad is not empty %}
+					{% if app.user %}
+						<a href="{{path('_search_competencia_private',{'page': 0,'search': habilidad })}}" type="button" class="btn btn-print btn-default">{{habilidad}}</a>
+					{% else %}
+						<a href="{{path('_search_competencia_public',{'page': 0,'search': habilidad})}}" type="button" class="btn btn-print btn-default">{{habilidad}}</a>
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		{% else %}
+			<h5 class="text-center text-muted">
+				<a href="#" data-toggle="modal" data-target="#editSkill">
+					<em><i class="fa fa-plus-circle"></i>&nbsp;agregar competencias</em>
+				</a>
+			</h5>
+		{% endif %}	
+
+		{% endblock %}
+
+
+		<div class="btn-group pull-right">
+		  	<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+		    	<i class="fa fa-pencil"></i> <span class="caret"></span>
+		  	</button>
+		  	<ul class="dropdown-menu" role="menu">
+		    	<li><a href="#" data-toggle="modal" data-target="#editSkill"><i class="fa fa-edit"></i> editar Competencias</a></li>
+		  	</ul>
+		</div>
+{% endblock %}
+
+
+{% block modal_ability  %}
+<!-- Modal New-->
+<div class="modal fade" id="editSkill" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Editar Competencias</h4>
+      </div>
+      <div class="modal-body">
+        {% use 'PCVDemoBundle:Edit:habilidades.html.twig' %}
+        {% block edit_ability %}
+        {{parent()}}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

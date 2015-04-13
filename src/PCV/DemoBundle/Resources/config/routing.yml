@@ -1,0 +1,25 @@
+_home:
+    resource: "@PCVDemoBundle/Controller/HomeController.php"
+    type:     annotation
+
+_editar:
+    resource: "@PCVDemoBundle/Controller/EditController.php"
+    type:     annotation
+
+_secured:
+    resource: "@PCVDemoBundle/Controller/SecuredController.php"
+    type:     annotation
+
+_search:
+    resource: "@PCVDemoBundle/Controller/SearchController.php"
+    type:     annotation
+
+_resumen:
+    resource: "@PCVDemoBundle/Controller/ResumenController.php"
+    type:     annotation
+
+
+#_orden de posicion importante!!!
+#_welcome:
+#   pattern:  /
+#    defaults: { _controller: PCVDemoBundle:Home:index }

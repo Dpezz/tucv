@@ -1,0 +1,209 @@
+{% block edit_premios %}
+	<form action="{{ path('_edit_premios') }}" method="POST" role="form">
+	{% if datosPr %}
+		<div class="panel-group" id="accordionPremios">
+		{% for premio in datosPr %}
+	  		
+			<div id="panelPremios{{loop.index}}" class="panel panel-primary">
+			    <div class="panel-heading">
+			      	<h4 class="panel-title text-center">
+			        	<a data-toggle="collapse" data-parent="#accordionPremios" href="#premios{{ loop.index }}">
+			        	<span class="badge pull-left">{{ loop.index }}</span>
+			          	 {{ premio.title}}.
+			        	</a>
+			        	<button type="button" class="close" id="premiosClose{{loop.index}}">&times;</button>
+			     	</h4>
+			    </div>
+			    <div id="premios{{ loop.index }}" class="panel-collapse collapse">
+			      	<div class="panel-body">
+					<div class="form_group">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="input-group">
+								<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Título"><i class="fa fa-trophy"></i></span>
+								<input type="text" class="form-control" id="title" name="_title{{ loop.index }}" placeholder="Título del Reconocimiento.." value="{{premio.title}}"required/>	    
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="input-group">
+								<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Entidad que entrega el reconocimiento"><i class="fa fa-building-o"></i></span>
+								<input type="text" class="form-control" id="emisor" name="_emisor{{ loop.index }}" placeholder="Emisor.." value="{{premio.emisor}}"required/>	
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="form_group">
+						<div class="input-group">
+							<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Ocupación"><i class="fa fa-briefcase"></i></span>
+							<input type="text" class="form-control" id="rol" name="_rol{{ loop.index }}" placeholder="Ocupación.." value="{{premio.rol}}"required/>	    
+						</div>
+					</div>
+					<br>
+					<div class="form_group">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="input-group">
+								<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Ciudad donde se obtuvo"><i class="fa fa-map-marker"></i></span>
+								<input type="text" class="form-control" id="city" name="_city{{ loop.index }}" placeholder="Ciudad.." pattern="^[a-zA-ZñÑáéíóú ]+" value="{{premio.city}}"required/>	    
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="input-group">
+								<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="País donde se obtuvo"><i class="fa fa-globe"></i></span>
+								<input type="text" class="form-control" id="country" name="_country{{ loop.index }}" placeholder="Pais.." pattern="^[a-zA-ZñÑáéíóú ]+" value="{{premio.country}}" required/>	
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					{% set meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"] %}
+					<div class="form_group">
+						<div class="row">
+							{% set item = premio.date|split(',') %}
+							<div class="col-md-6">
+								<div class="input-group">
+								<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Mes"><i class="fa fa-calendar"></i></span>
+								
+								<select class="form-control" name="_mes{{ loop.index }}" required>
+									<option {% if item|first == " " %}selected{% endif %} value="">Mes:</option>
+									{% for mes in meses %}
+										<option value="{{loop.index}}" {% if item|first == loop.index %}selected{% endif %}>{{mes}}</option>
+									{% endfor %}				
+								</select>		        		
+							</div>
+							</div>
+							<div class="col-md-6">
+								<div class="input-group">
+								<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Año"><i class="fa fa-calendar"></i></span>
+								<select class="form-control" name="_año{{ loop.index }}" required>
+									<option {% if item|last == 'Año:' %}select{% endif %} value="">Año:</option>
+									{% for i in 2014..1940 %}
+									<option {% if item|last == i %}selected{% endif %}>{{i}}</option>
+									{% endfor %}
+								</select>		        		
+							</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="form_group">
+						<textarea class="form-control" rows="3" name="_description{{ loop.index }}" placeholder="Descripción (Opcional)"/>{{premio.description}}</textarea>
+					</div>
+					</div>
+			    </div>
+			</div>
+		{% endfor %}
+		</div>
+		<div class="modal-footer">
+        	<button type="submit" class="btn btn-blue" id="loading-example-btn" data-loading-text="Loading...">Guardar</button>
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      	</div>
+	{% else %}
+	<p><i class="fa fa-plus-square"></i> Agrega Reconocimientos y Premios</p>
+	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      	</div>
+	{% endif %}
+</form>
+{% endblock %}
+
+
+{% block new_premios %}
+<form action="{{ path('_new_premio') }}" method="POST" role="form">
+	<div class="form_group">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Título"><i class="fa fa-trophy"></i></span>
+				<input type="text" class="form-control" id="title" name="_title" placeholder="Título del Reconocimiento.." required/>	    
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Entidad que entrega el reconocimiento"><i class="fa fa-building-o"></i></span>
+				<input type="text" class="form-control" id="emisor" name="_emisor" placeholder="Emisor.." required/>	
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="form_group">
+		<div class="input-group">
+			<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Ocupación"><i class="fa fa-briefcase"></i></span>
+			<input type="text" class="form-control" id="rol" name="_rol" placeholder="Ocupacion.." required/>	    
+		</div>
+	</div>
+	<br>
+	<div class="form_group">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Ciudad donde se obtuvo"><i class="fa fa-map-marker"></i></span>
+				<input type="text" class="form-control" id="city" name="_city" placeholder="Ciudad.." pattern="^[a-zA-ZñÑáéíóú ]+" required/>	    
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="País donde se obtuvo"><i class="fa fa-globe"></i></span>
+				<input type="text" class="form-control" id="country" name="_country" placeholder="Pais.." pattern="^[a-zA-ZñÑáéíóú ]+" required/>	
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="form_group">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Mes"><i class="fa fa-calendar"></i></span>
+				<select class="form-control" name="_mes" required>
+					<option value="">Mes:</option>
+					<option value="1">Enero</option>
+					<option value="2">Febrero</option>
+					<option value="3">Marzo</option>
+					<option value="4">Abril</option>
+					<option value="5">Mayo</option>
+					<option value="6">Junio</option>
+					<option value="7">Julio</option>
+					<option value="8">Agosto</option>
+					<option value="9">Septiembre</option>
+					<option value="10">Octubre</option>
+					<option value="11">Noviembre</option>
+					<option value="12">Diciembre</option>				
+				</select>		        		
+			</div>
+			</div>
+			<div class="col-md-6">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Año"><i class="fa fa-calendar"></i></span>
+				<select class="form-control" name="_año" required>
+					<option value="">Año:</option>
+					{% for i in 2014..1940 %}
+					<option value="{{i}}">{{i}}</option>
+					{% endfor %}
+				</select>		        		
+			</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="form_group">
+		<textarea class="form-control" rows="3" name="_description" placeholder="Descripción (Opcional)"/></textarea>
+	</div>
+		
+	<div class="modal-footer">
+    	<button type="submit" class="btn btn-blue" id="name">Guardar</button>
+    	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    </div>
+</form>
+<script type="text/javascript">
+{% if datosPr %}
+	{% for premio in datosPr %}
+		$('#premiosClose{{loop.index}}').click(function(){
+			$('#panelPremios{{loop.index}}').remove();
+		});
+	{% endfor %}
+{% endif %}
+</script>
+{% endblock %}

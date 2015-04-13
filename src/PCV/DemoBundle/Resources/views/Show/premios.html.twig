@@ -1,0 +1,87 @@
+{% block premios_private %}
+
+	{% block premios_public %}
+	
+		{% if datosPr %}
+			{% set meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"] %}
+			{% for premio in datosPr %}
+		
+				{% set fecha = premio.date|split(',') %}
+			 	<div class="row">
+				 	<div class="col-md-12">
+						<h5 class="media-heading grey-color"><em><strong>{{premio.emisor}}</strong></em></h5>
+						<h5 class="label label-yellow">{{meses[fecha|first -1]}},&nbsp;
+						{{fecha|last}}</h5>
+						<br>
+						<h5 class="label label-info">{{premio.city}}, {{premio.country}}</h5>
+					
+						<h4 class="text-primary"><strong>{{premio.title}}</strong></h4>
+						<h4 class="text-muted"><em><strong>{{premio.rol}}</strong></em></h4>
+						<h5 class="text-muted">{{premio.description}}</h5>
+					</div>
+				</div>
+				<hr>
+			{% endfor %}
+		{% else %}
+			<h5 class="text-center text-muted">
+				<a href="#" data-toggle="modal" data-target="#newAward">
+					<em><i class="fa fa-plus-circle"></i>&nbsp;agregar reconocimientos y premios</em>
+				</a>
+			</h5>
+		{% endif %}
+	{% endblock %}
+		
+	<div class="">
+		<h3 class="panel-title">
+			<div class="btn-group pull-right">
+			  	<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+			    	<i class="fa fa-pencil"></i> <span class="caret"></span>
+			  	</button>
+			  	<ul class="dropdown-menu" role="menu">
+			    	<li><a href="#" data-toggle="modal" data-target="#newAward"><i class="fa fa-trophy"></i> nuevo Premio</a></li>
+			    	<li><a href="#" data-toggle="modal" data-target="#editAward"><i class="fa fa-edit"></i> editar Premios</a></li>
+			  	</ul>
+			</div>
+		</h3>
+	</div>
+{% endblock %}
+
+{% block modal_premios %}
+<!-- Modal -->
+<div class="modal fade" id="editAward" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Editar Reconocimientos y Premios</h4>
+      </div>
+      <div class="modal-body">
+        {% use 'PCVDemoBundle:Edit:premios.html.twig' %}
+        {% block edit_premios %}
+        {{parent()}}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--New  Modal -->
+<div class="modal fade" id="newAward" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Nuevo Reconocimiento y Premio</h4>
+      </div>
+      <div class="modal-body">
+        {% use 'PCVDemoBundle:Edit:premios.html.twig' %}
+        {% block new_premios %}
+        {{parent()}}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

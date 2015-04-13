@@ -1,0 +1,96 @@
+{% block knowing_private %}
+	{% block knowing_public %}
+	
+		{% if datosC %}
+			{% set variables = ['principiante','principiante','intermedio','intermedio','alto','avanzado','experto'] %}
+			{% for conocimiento in datosC|batch(2) %}
+			<div class="row">
+				{% for item in conocimiento %}
+		           <div class="col-xs-12 col-md-6">
+		           		<div class="col-xs-5 col-md-5">
+		           			{% if app.user %}
+		           			<a href="{{path('_search_skill_private',{'page': 0,'search': item.name })}}" type="button" class="btn btn-default btn-print">{{item.name}}</a>
+		           			{% else %}
+		           			<a href="{{path('_search_skill_public',{'page':0,'search': item.name })}}" type="button" class="btn btn-default btn-print">{{item.name}}</a>
+		           			{% endif %}
+		           		</div>
+		           		<div class="col-xs-7 col-md-7">
+		           			<span data-toggle="tooltip" data-placement="top" title="{{variables[item.value]}} - {{(item.value *17)-2}} %">
+								{% for i in  1..(item.value) %}
+									<i class="fa fa-heart yellow"></i>
+								{% endfor %}
+								{% if (6 - item.value) > 0 %}
+									{% for i in  1..(6 - item.value) %}
+									<i class="fa fa-heart grayIcon"></i>
+									{% endfor %}
+								{% endif %}
+							</span>
+		           		</div>
+		           </div>
+		        {% endfor %}
+			</div>
+			{% endfor %}
+		{% else %}
+			<h5 class="text-center text-muted">
+				<a href="#" data-toggle="modal" data-target="#newLearn">
+					<em><i class="fa fa-plus-circle"></i>&nbsp;agregar conocimientos</em>
+				</a>
+			</h5>
+		{% endif %}
+
+	{% endblock %}
+
+	<div class="">
+	    <h3 class="panel-title">
+	    	<div class="btn-group pull-right">
+			  	<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+			    	<i class="fa fa-pencil"></i> <span class="caret"></span>
+			  	</button>
+			  	<ul class="dropdown-menu" role="menu">
+			    	<li><a href="#" data-toggle="modal" data-target="#newLearn"><i class="fa fa-gear"></i> nuevo Conocimiento</a></li>
+			    	<li><a href="#" data-toggle="modal" data-target="#editLearn"><i class="fa fa-edit"></i> editar Conocimientos</a></li>
+			  	</ul>
+			</div>
+	    </h3>
+	</div>
+{% endblock %}
+
+
+{% block modal_knowing  %}
+<!-- Modal Edit -->
+<div class="modal fade" id="editLearn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Editar Conocimientos</h4>
+      </div>
+      <div class="modal-body">
+        {% use 'PCVDemoBundle:Edit:conocimientos.html.twig' %}
+        {% block edit_knowing %}
+        {{parent()}}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal New-->
+<div class="modal fade" id="newLearn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Nuevo Conocimiento</h4>
+      </div>
+      <div class="modal-body">
+        {% use 'PCVDemoBundle:Edit:idiomas.html.twig' %}
+        {% block new_knowing %}
+        {{parent()}}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

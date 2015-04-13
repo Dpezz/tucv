@@ -1,0 +1,198 @@
+{% extends 'PCVDemoBundle:Plantillas:page.html.twig' %} 
+{% block title datosU.name %}
+
+{% block navbar %}
+  {% embed 'PCVDemoBundle:Plantillas:pagenav.html.twig' %}
+    {% block navbar %}
+      {{parent()}}
+    {% endblock %}
+  {% endembed %}
+{% endblock %}
+
+{% block contenido %}
+
+{% if datosD and datosD.bio is not empty %}
+<div class="jumbotron" style="background-color:#f5f5f5">
+{% else %}
+<div class="jumbotron" style="background-color:#fdfdfd">
+{% endif %}
+  <div class="container">
+    {% use 'PCVDemoBundle:Show:portada.html.twig' %}
+    {% block portada_public %}
+      {{parent()}}
+    {% endblock %}
+    {% block modal_download_cv %}{{parent()}}{% endblock %}
+    {% block modal_share_cv %}{{parent()}}{% endblock %}
+  </div>
+</div>
+
+{% if datosD and datosD.bio is not empty %}
+  <div class="jumbotron" style="background-color:#fff">
+    <div class="container">
+        <div class="page-header" style="border-bottom-color:#ddd">
+          <h3 class="text-muted"><i class="fa fa-align-center muted"></i>&nbsp;Resumen</h3>
+        </div>
+
+        {% use 'PCVDemoBundle:Show:bio.html.twig' %}
+        {% block bio_public %}
+          {{parent()}}
+        {% endblock %}
+    </div>
+  </div>
+{% endif %}
+
+{% if  datosD.birthday is not empty or datosD.nationality is not empty or datosD.city is not empty or datosD.address is not empty or datosD.sex is not empty or datosD.status is not empty or datosD.disponible is not empty or datosD.licencia is not empty %}
+<div class="jumbotron" style="background-color:#f5f5f5">
+  <div class="container">
+    <div class="page-header" style="border-bottom-color:#ddd">
+          <h3 class="text-muted"><i class="fa fa-user muted"></i>&nbsp;Datos Personales</h3>
+        </div>
+
+      {% use 'PCVDemoBundle:Show:datos.html.twig' %}
+      {% block data_public %}
+        {{parent()}}
+      {% endblock %}
+  </div>
+</div>
+{% endif %}
+
+
+{% if datosE %}
+  <div class="jumbotron" style="background-color:#fff">
+    <div class="container">
+      <div class="page-header">
+          <h3 class="text-muted"><i class="fa fa-briefcase muted"></i>&nbsp;Experiencia</h3>
+      </div>
+
+      {% block experience_public %}
+      {% use 'PCVDemoBundle:Show:experiencia.html.twig' %}
+        {{parent()}}
+      {% endblock %}
+    </div>
+  </div>
+{% endif %}
+
+{% if datosEd %}
+  <div class="jumbotron" style="background-color:#fff">
+    <div class="container">
+      <div class="page-header">
+        <h3 class="text-muted"><i class="fa fa-book muted"></i>&nbsp;Educación</h3>
+      </div>
+
+      {% use 'PCVDemoBundle:Show:educacion.html.twig' %}
+      {% block education_public %}
+        {{parent()}}
+      {% endblock %}
+    </div>
+  </div>
+{% endif %}
+
+
+
+{% if datosI %}
+  <div class="jumbotron" style="background-color:#f5f5f5">
+    <div class="container">
+        <div class="page-header" style="border-bottom-color:#ddd">
+            <h3 class="text-muted"><i class="fa fa-language muted"></i>&nbsp;Idiomas</h3>
+        </div>
+
+        {% use 'PCVDemoBundle:Show:idiomas.html.twig' %}
+        {% block idiom_public %}
+          {{parent()}}
+        {% endblock %}
+    </div>
+  </div>
+{% endif %}
+
+{% if datosC %}
+  <div class="jumbotron" style="background-color:#f5f5f5">
+    <div class="container">
+        <div class="page-header" style="border-bottom-color:#ddd">
+            <h3 class="text-muted"><i class="fa fa-lightbulb-o muted"></i>&nbsp;Conocimientos</h3>
+        </div>
+
+        {% use 'PCVDemoBundle:Show:conocimientos.html.twig' %}
+        {% block knowing_public %}
+          {{parent()}}
+      {% endblock %}
+    </div>
+  </div>
+{% endif %}
+
+{% if datosD.habilidades is not empty %}
+  <div class="jumbotron" style="background-color:#f5f5f5">
+    <div class="container">
+      <div class="page-header" style="border-bottom-color:#ddd">
+          <h3 class="text-muted"><i class="fa fa-star muted"></i>&nbsp;Competencias</h3>
+      </div>
+
+      {% use 'PCVDemoBundle:Show:habilidades.html.twig' %}
+      {% block ability_public %}
+        {{parent()}}
+      {% endblock %}
+    </div>
+  </div>
+{% endif %}
+
+
+
+
+{% if datosPr %}
+  <div class="jumbotron" style="background-color:#fff">
+    <div class="container">
+        <div class="page-header">
+          <h3 class="text-muted"><i class="fa fa-trophy muted"></i>&nbsp;Reconocimientos y Premios</h3>
+        </div>
+
+        {% use 'PCVDemoBundle:Show:premios.html.twig' %}
+        {% block premios_public %}
+          {{parent()}}
+        {% endblock %}
+    </div>
+  </div>
+  {% endif %}
+
+{% if datosCe %}
+  <div class="jumbotron" style="background-color:#f5f5f5">
+    <div class="container">
+          <div class="page-header">
+            <h3 class="text-muted"><i class="fa fa-file-text muted"></i>&nbsp;Certificaciones</h3>
+          </div>
+
+          {% use 'PCVDemoBundle:Show:certificaciones.html.twig' %}
+          {% block certificaciones_public %}
+            {{parent()}}
+          {% endblock %}
+    </div>
+  </div>
+{% endif %}
+
+
+
+{% if datosP %}
+  <div class="jumbotron" style="background-color:#fff">
+    <div class="container">
+      <div class="page-header" style="border-bottom-color:#ddd">
+        <h3 class="text-muted"><i class="fa fa-folder muted"></i>&nbsp;Portafolio</h3>
+      </div>
+
+      {% use 'PCVDemoBundle:Show:proyectos.html.twig' %}
+      {% block project_public %}
+        {{parent()}}
+      {% endblock %}
+    </div>
+  </div>
+{% endif %}
+
+{% endblock %}
+
+
+  
+{% block footer_page %}
+    <!-- mostramos el texto de cabecera  -->
+    {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+    {% block footer %}
+        {{parent()}}
+    {% endblock %}
+    <!-- end embed -->
+{% endblock %}

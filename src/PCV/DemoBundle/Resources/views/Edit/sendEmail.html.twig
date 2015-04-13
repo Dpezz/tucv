@@ -1,0 +1,54 @@
+{% block send_email %}
+<form action="{{ path('_send_email') }}" method="POST" role="form">
+	<div class="row">
+		<div class="col-md-12">		
+			<div class="form-group">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Ingresar correo. Más de un correo Separar con ',' Ej: correo1@tucv.cl,correo2@tucv.cl"><i class="fa fa-envelope-o"></i></span>
+				<input type="email" class="form-control input-sm" id="to_email" name="_to_email" placeholder="Para" multiple required/>
+				</div>
+			</div>
+		</div>
+	</div>		
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Ingresa Asunto"><i class="fa fa-pencil"></i></span>
+				<input type="text" class="form-control input-sm" id="asunto" name="_asunto" placeholder="Asunto" required/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<textarea class="form-control" id="msg" name="_msg" rows="5" placeholder="mensaje" required></textarea>
+		</div>
+	</div>
+	<div class="modal-footer">
+        <button type="submit" class="btn btn-blue" id="btnSend" disabled="disabled">Enviar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    </div>
+</form>
+<script type="text/javascript">
+$(document).ready(function(){
+  $( "#to_email" ).keyup(function() {
+    activarbtn();
+  });
+  $( "#asunto" ).keyup(function() {
+    activarbtn();
+  });
+  $( "#msg" ).keyup(function() {
+    activarbtn();
+  });
+});
+function activarbtn(){
+  if($('#to_email').val().trim().length>0 && $('#asunto').val().trim().length>0 && $('#msg').val().trim().length>0 )
+  {
+    $('#btnSend').removeAttr('disabled');
+  }else{
+    $('#btnSend').attr('disabled','disabled');
+  }
+};
+</script>
+{% endblock %}

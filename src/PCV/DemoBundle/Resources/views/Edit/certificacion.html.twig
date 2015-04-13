@@ -1,0 +1,299 @@
+{% block edit_certificaciones %}
+	<form action="{{ path('_edit_certificados') }}" method="POST" role="form">
+	{% if datosCe %}
+		<div class="panel-group" id="accordionCertificacion">
+		{% for certificado in datosCe %}
+	  		
+			<div id="panelCertificacion{{loop.index}}" class="panel panel-primary">
+			    <div class="panel-heading">
+			      	<h4 class="panel-title text-center">
+			        	<a data-toggle="collapse" data-parent="#accordionCertificacion" href="#certificados{{ loop.index }}">
+			        	<span class="badge pull-left">{{ loop.index }}</span>
+			          	 {{ certificado.title}}.
+			        	</a>
+			        	<button type="button" class="close" id="certificadosClose{{loop.index}}">&times;</button>
+			     	</h4>
+			    </div>
+			    <div id="certificados{{ loop.index }}" class="panel-collapse collapse">
+			      	<div class="panel-body">
+
+					<div class="form_group">
+						<div class="input-group">
+							<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Nombre de la certificación"><i class="fa fa-file-text"></i></span>
+							<input type="text" class="form-control" id="title" name="_title{{ loop.index }}" placeholder="Nombre de la certificación" value="{{certificado.title}}"required/>	    
+						</div>
+					</div>
+					<br>
+					<div class="form_group">
+						<div class="input-group">
+							<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Autoridad responsable de la certificación"><i class="fa fa-building-o"></i></span>
+							<input type="text" class="form-control" id="emisor" name="_emisor{{ loop.index }}" placeholder="Autoridad responsable de la certificación" value="{{certificado.emisor}}"required/>	
+						</div>
+					</div>
+					<br>
+					<div class="form_group">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="input-group">
+								<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Ciudad donde se obtuvo"><i class="fa fa-map-marker"></i></span>
+								<input type="text" class="form-control" id="city" name="_city{{ loop.index }}" placeholder="Ciudad.." pattern="^[a-zA-ZñÑáéíóú ]+" value="{{certificado.city}}"required/>	    
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="input-group">
+								<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="País donde se obtuvo"><i class="fa fa-globe"></i></span>
+								<input type="text" class="form-control" id="country" name="_country{{ loop.index }}" placeholder="Pais.." pattern="^[a-zA-ZñÑáéíóú ]+" value="{{certificado.country}}" required/>	
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					{% set meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"] %}
+					<div class="form_group">
+						<label>Fecha incio:</label>
+						<div class="row">
+							{% set item = certificado.startDate|split(',') %}
+							<div class="col-md-3">
+								<select class="form-control" name="_mes{{ loop.index }}" required>
+									<option {% if item|first == " " %}selected{% endif %} value="">Mes:</option>
+									{% for mes in meses %}
+										<option value="{{loop.index}}" {% if item|first == loop.index %}selected{% endif %}>{{mes}}</option>
+									{% endfor %}
+								</select>		        		
+							</div>
+							<div class="col-md-3">
+								<select class="form-control" name="_año{{ loop.index }}" required>
+									<option {% if item|last == " " %}select{% endif %} value="">Año:</option>
+									{% for i in 2014..1940 %}
+									<option {% if item|last == i %}selected{% endif %}>{{i}}</option>
+									{% endfor %}
+								</select>		        		
+							</div>
+							<div class="col-md-6">
+								<div class="checkbox">
+									<label>
+										{% if certificado.endDate|split(',')|last is not empty %}
+										<input type="checkbox" id="caducidad{{ loop.index }}" onchange="checkbox_changed{{ loop.index }}()">
+										{% else %}
+										<input type="checkbox" id="caducidad{{ loop.index }}" checked="checked" onchange="checkbox_changed{{ loop.index }}()">
+										{% endif %}
+										Este certificado no caduca
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form_group" id="group_caducidad{{ loop.index }}">
+						<label>Fecha caducidad:</label>
+						<div class="row">
+							{% set item = certificado.endDate|split(',') %}
+							<div class="col-md-3">
+								<select class="form-control" id="mesFin{{ loop.index }}"name="_mesFin{{ loop.index }}" required="required">
+									<option {% if item|first == "" %}selected{% endif %} value="">Mes:</option>
+									{% for mes in meses %}
+										<option value="{{loop.index}}" {% if item|first == loop.index %}selected{% endif %}>{{mes}}</option>
+									{% endfor %}	
+								</select>		        		
+							</div>
+							<div class="col-md-3">
+								<select class="form-control" id="añoFin{{ loop.index }}" name="_añoFin{{ loop.index }}" required="required">
+									<option {% if item|last == 'Año:' %}select{% endif %} value="">Año:</option>
+									{% for i in 2014..1940 %}
+									<option {% if item|last == i %}selected{% endif %}>{{i}}</option>
+									{% endfor %}
+								</select>		        		
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="form_group">
+						<textarea class="form-control" rows="3" name="_description{{ loop.index }}" placeholder="Descripción (Opcional)"/>{{certificado.description}}</textarea>
+					</div>
+					</div>
+			    </div>
+			</div>
+		{% endfor %}
+		</div>
+		<div class="modal-footer">
+        	<button type="submit" class="btn btn-blue" id="loading-example-btn" data-loading-text="Loading...">Guardar</button>
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      	</div>
+	{% else %}
+	<p><i class="fa fa-plus-square"></i> Agrega Reconocimientos y Premios</p>
+	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      	</div>
+	{% endif %}
+</form>
+{% endblock %}
+
+
+{% block new_certificacion %}
+<form action="{{ path('_new_certificado') }}" method="POST" role="form">
+	<div class="form_group">
+		<div class="input-group">
+			<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Nombre de la certificación"><i class="fa fa-file-text"></i></span>
+			<input type="text" class="form-control" id="title" name="_title" placeholder="Nombre de la certificación" required/>
+		</div>
+	</div>
+	<br>
+	<div class="form_group">			
+		<div class="input-group">
+			<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Autoridad responsable de la certificación"><i class="fa fa-building-o"></i>
+			</span>
+			<input type="text" class="form-control" id="emisor" name="_emisor" placeholder="Autoridad responsable de la certificación" required/>	
+		</div>
+	</div>
+	<br>
+
+	<div class="form_group">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Ciudad donde se obtuvo"><i class="fa fa-map-marker"></i></span>
+				<input type="text" class="form-control" id="city" name="_city" placeholder="Ciudad.." pattern="^[a-zA-ZñÑáéíóú ]+" required/>	    
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="País donde se obtuvo"><i class="fa fa-globe"></i></span>
+				<input type="text" class="form-control" id="country" name="_country" placeholder="Pais.." pattern="^[a-zA-ZñÑáéíóú ]+" required/>	
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="form_group">
+		<label>Fecha incio:</label>
+		<div class="row">
+			<div class="col-md-3">
+				<select class="form-control" name="_mes" required>
+					<option value="">Mes:</option>
+					<option value="1">Enero</option>
+					<option value="2">Febrero</option>
+					<option value="3">Marzo</option>
+					<option value="4">Abril</option>
+					<option value="5">Mayo</option>
+					<option value="6">Junio</option>
+					<option value="7">Julio</option>
+					<option value="8">Agosto</option>
+					<option value="9">Septiembre</option>
+					<option value="10">Octubre</option>
+					<option value="11">Noviembre</option>
+					<option value="12">Diciembre</option>				
+				</select>		        		
+			</div>
+			<div class="col-md-3">
+				<select class="form-control" name="_año" required>
+					<option value="">Año:</option>
+					{% for i in 2014..1940 %}
+					<option value="{{i}}">{{i}}</option>
+					{% endfor %}
+				</select>		        		
+			</div>
+			<div class="col-md-6">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="caducidad"  checked="checked" onchange="checkbox_changed()">
+						Este certificado no caduca
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form_group" id="group_caducidad">
+		<label>Fecha caducidad:</label>
+		<div class="row">
+			<div class="col-md-3">
+				<select class="form-control" id="mesFin" name="_mesFin" required="required">
+					<option value="">Mes:</option>
+					<option value="1">Enero</option>
+					<option value="2">Febrero</option>
+					<option value="3">Marzo</option>
+					<option value="4">Abril</option>
+					<option value="5">Mayo</option>
+					<option value="6">Junio</option>
+					<option value="7">Julio</option>
+					<option value="8">Agosto</option>
+					<option value="9">Septiembre</option>
+					<option value="10">Octubre</option>
+					<option value="11">Noviembre</option>
+					<option value="12">Diciembre</option>				
+				</select>		        		
+			</div>
+			<div class="col-md-3">
+				<select class="form-control" id="añoFin" name="_añoFin" required="required">
+					<option value="">Año:</option>
+					{% for i in 2014..1940 %}
+					<option value="{{i}}">{{i}}</option>
+					{% endfor %}
+				</select>		        		
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="form_group">
+		<textarea class="form-control" rows="3" name="_description" placeholder="Descripción (Opcional)"/></textarea>
+	</div>
+		
+	
+	<div class="modal-footer">
+        	<button type="submit" class="btn btn-blue" id="name">Guardar</button>
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+	var check = document.getElementById("caducidad");
+	if(check.checked == true){
+		$('#group_caducidad').hide();
+		$('#mesFin,#añoFin').removeAttr('required');
+	}
+
+	function checkbox_changed(){
+		if(check.checked == true){
+			$('#group_caducidad').hide();
+			$('#mesFin,#añoFin').removeAttr('required');
+			$('#mesFin').val("");
+			$('#añoFin').val("");
+		}else{
+			$('#group_caducidad').show();
+			$('#mesFin,#añoFin').attr('required','required');
+
+		}
+	};
+
+	{% if datosCe %}
+	{% for certificado in datosCe %}
+		var check{{loop.index}} = document.getElementById("caducidad{{loop.index}}");
+		if(check{{loop.index}}.checked == true){
+			$('#group_caducidad{{loop.index}}').hide();
+			$('#mesFin{{loop.index}},#añoFin{{loop.index}}').removeAttr('required');
+			$('#mesFin{{loop.index}}').val("");
+			$('#añoFin{{loop.index}}').val("");
+		}
+		else{
+			$('#group_caducidad{{loop.index}}').show();
+		}
+
+		function checkbox_changed{{loop.index}}(){
+			if(check{{loop.index}}.checked == true){
+				$('#group_caducidad{{loop.index}}').hide();
+				$('#mesFin{{loop.index}},#añoFin{{loop.index}}').removeAttr('required');
+				$('#mesFin{{loop.index}}').val("");
+				$('#añoFin{{loop.index}}').val("");
+			}else{
+				$('#group_caducidad{{loop.index}}').show();
+				$('#mesFin{{loop.index}},#añoFin{{loop.index}}').attr('required','required');
+			}
+		};
+
+		$('#certificadosClose{{loop.index}}').click(function(){
+			$('#panelCertificacion{{loop.index}}').remove();
+		});
+	{% endfor %}
+	{% endif %}
+
+</script>
+{% endblock %}

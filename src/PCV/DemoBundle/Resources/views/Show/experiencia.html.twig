@@ -1,0 +1,93 @@
+{% block experience_private %}
+
+	{% block experience_public %}
+  
+		{% if datosE %}
+		{% set meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"] %}
+			{% for exp in datosE %}
+			
+				{% set fechaInicio = exp.startDate|split(',') %}
+				{% set fechaFin = exp.endDate|split(',') %}
+
+			 	<div class="row">
+			 		<div class="col-md-12">
+						
+						<h5 class="label label-yellow">{{meses[fechaInicio|first -1]}},{{fechaInicio|last}}</h5>-
+						{% if exp.endDate == 0 %}
+						<h5 class="label btn-blue-dark">hoy</h5>
+						{% else %}
+						<h5 class="label label-yellow">{{ meses[fechaFin|first -1 ]}},{{ fechaFin|last }}</h5>
+						{% endif %}
+
+						<br>
+						<h5 class="label label-info">{{exp.city}}, {{exp.country}}</h5>
+
+						<h4 class="text-primary"><strong>{{exp.company}}</strong></h4>
+						<h4 class="text-muted"><em><strong>{{exp.rol}}</strong></em></h4>
+						<h5 class="text-muted">{{exp.description}}</h5>
+					</div>
+				</div>
+				
+				<hr>
+			{% endfor %}
+		{% else %}
+			<h5 class="text-center text-muted">
+				<a href="#" data-toggle="modal" data-target="#newExperience">
+					<em><i class="fa fa-plus-circle"></i>&nbsp;agregar experiencias</em>
+				</a>
+			</h5>
+		{% endif %}
+	{% endblock %}
+
+	<div>
+		<h3 class="panel-title">
+	    	<div class="btn-group pull-right">
+			  	<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+			    	<i class="fa fa-pencil"></i> <span class="caret"></span>
+			  	</button>
+			  	<ul class="dropdown-menu" role="menu">
+			    	<li><a href="#" data-toggle="modal" data-target="#newExperience"><i class="fa fa-briefcase"></i> nueva Experiencia</a></li>
+			    	<li><a href="#" data-toggle="modal" data-target="#editExperience"><i class="fa fa-pencil-square-o"></i> editar Experiencias</a></li>
+			  	</ul>
+			</div>
+	    </h3>
+	</div>	  
+{% endblock %}
+
+{% block modal_experience %}
+<!-- Modal -->
+<div class="modal fade" id="editExperience" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  	<div class="modal-dialog">
+	    <div class="modal-content">
+	      	<div class="modal-header">
+	        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        	<h4 class="modal-title" id="myModalLabel">Editar Experiencias Profesionales</h4>
+	      	</div>
+	      	<div class="modal-body">
+	        	{% use 'PCVDemoBundle:Edit:experiencia.html.twig' %}
+	        	{% block edit_experience %}
+	        		{{parent()}}
+	        	{% endblock %}
+	      	</div>
+	    </div>
+  	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="newExperience" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        		<h4 class="modal-title" id="myModalLabel">Nueva Experiencia Profesional</h4>
+      		</div>
+      		<div class="modal-body">
+		        {% use 'PCVDemoBundle:Edit:experiencia.html.twig' %}
+		        {% block new_experience %}
+		        {{parent()}}
+		        {% endblock %}
+      		</div>
+    	</div>
+  	</div>
+</div>
+{% endblock %}

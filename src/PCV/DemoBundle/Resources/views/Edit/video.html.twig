@@ -1,0 +1,37 @@
+{% block delete_video %}
+<form action="{{ path('_delete_video') }}" method="POST" rol="form">
+        <h3 class="text-center"> Seguro que deseas eliminar tu Video <i class="fa fa-question"></i> </h3>
+        <br>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-blue">Eliminar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+</form>
+{% endblock %}
+
+{% block edit_video %}
+
+
+    <form action="{{ path('_edit_video') }}" method="POST" rol="form">
+        <div class="well">
+	       <div class="alert alert-success">
+            <strong> TuCV </strong> permite que agregues tu video curriculum desde sitios como: <br> <i class="fa fa-youtube"></i><strong>&nbsp;youtube</strong> , <i class="fa fa-vimeo-square"></i><strong>&nbsp;vimeo</strong>, <i class="fa fa-vine"></i><strong>&nbsp;vine</strong> u otros.<br>
+            Solo inserta la dirección de tu video a continuación.
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="exampleInputFile">Agrega url del video:</label>
+            <div class="input-group input-group-sm">
+                <span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="url del video. Ej: http://www.youtube.com/watch?v=z152aDsEj6D  ó http://vimeo.com/123456789"><i class="fa fa-play"></i></span>
+                <input type="url" class="form-control" id="video" name="_video" placeholder="http://" {% if datosD and datosD.videoUrl and ('.webm' not in datosD.videoUrl) %} value="{{ datosD.videoUrl }}"{% endif %}>
+            </div>
+        </div>
+		<div class="modal-footer">
+        	<button type="submit" class="btn btn-blue" id="name">Guardar</button>
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      	</div>
+	</form>
+
+
+{% endblock %}

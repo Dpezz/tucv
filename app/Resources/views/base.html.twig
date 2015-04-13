@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang='es'>
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="Author" lang="es" content="Daniel Jara Pezzoli & Jorge Alvarez Pinto">
+
+
+      <meta name="description" content="La Serena, Chile,Somos jóvenes profesionales, emprendedores, recientemente egresados de ingeniería en software, creadores de ‘TuCV’." />
+      <meta name="description" lang="en" content="'TuCV es una plataforma que busca innovar en la manera de presentar nuestro resumen profesional a la hora de postular a un empleo. Es por ello que ofrecemos crear y mantener tu Curriculum Vitae en la web, disponiendo de una plantilla simple con un diseño moderno, fácil y ordenado de revisar." />
+      <meta name="keywords" content="curriculum, cv, vitae, online, tucv, curriculum vitae, curriculum online, curriculum en la web, resume, resumen, portafolio, project,tu cv, tu cv" />
+      <meta property="og:image" content="{{ asset('bundles/pcvdemo/image/logo.png') }}"/>
+      <meta property="og:title" content="tucv"/>
+      <meta property="og:url" content="http://www.tucv.cl"/>
+      <meta property="og:site_name" content="tuCV"/>
+      <meta property="og:type" content="oficina, office,"/>
+      <meta property="og:description" content="'TuCV, plataforma que busca innovar en la manera de presentar nuestro resumen profesional a la hora de postular a un empleo. Es por ello que ofrecemos crear y mantener tu Curriculum Vitae en la web, disponiendo de una plantilla simple con un diseño moderno, fácil y ordenado de revisar."/>
+      <meta lang="es" property="og:description" content="Con 'TuCV', podrás visualizar tus datos de forma simple y ordenada. ‘TuCV’ está pensado en facilitar el ingreso de tus datos personales, entregando una combinación perfecta entre sencillez y modernidad. Incluimos un portafolio donde podrás presentar y detallar todas tus creaciones y proyectos profesionales que has realizado.Crea tu perfil Profesional y mantenlo en la web."/>
+
+      <link rel="icon" type="image/x-icon" href="{{ asset('bundles/pcvdemo/tucv_icono.ico') }}" />
+      <title>{% block title %}< tuCV >{% endblock %}</title>
+
+      {% block stylesheets %}
+          <link rel="stylesheet" type="text/css"  href="{{ asset('bundles/pcvdemo/css/bootstrap.css') }}" />
+          <link rel="stylesheet" type="text/css"  href="{{ asset('bundles/pcvdemo/css/font-awesome.css') }}" />
+      {% endblock %}
+      {% block javascripts %}
+          <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+          <script src="{{ asset('bundles/pcvdemo/js/bootstrap/bootstrap.js') }}"></script>
+
+      {% endblock %}
+        
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+
+    <!-- google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-50179971-1', 'tucv.cl');
+      ga('send', 'pageview');
+    </script>
+    </body>
+</html>

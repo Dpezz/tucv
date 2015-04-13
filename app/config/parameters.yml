@@ -1,0 +1,27 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: nnull
+    database_port: 3306
+    database_name: tucvcl_users_database
+    database_user: tucvcl_root
+    database_password: null
+    mailer_transport: smtp
+    mailer_host: mail.tucv.cl
+    mailer_user: contacto@tucv.cl
+    mailer_password: null
+    locale: en
+    secret: ThisTokenIsNotSoSecretChangeIt
+    database_path: null
+    cantidadcv: 890+
+    resume: visualiza tus datos de forma simple y ordenada. Facilitamos el ingreso de tus datos de forma creativa, entregando una combinación perfecta entre sencillez y modernidad.
+    project: Exhibe al mundo tus creaciones. Incluimos un portafolio donde podrás presentar, detallar y compartir todos los proyectos o trabajos profesionales en que has participado.
+    cloud: Crea tu perfil Profesional y mantenlo en la web, comparte y envía sólo la dirección de tu Resumen, desde el lugar en que te encuentres y cuando quieras.
+    image: Hazte visible y muestrate al mundo tal como eres. Agrega y edita tu imagen de perfil en tu resumen profesional, además podrás añadir imagenes a cada proyecto de tu portafolio.
+    video: Aumenta la probabilidad de encontrar empleo mediante Video Curriculum. Presenta tus conocimientos y aptitudes para que te conozcan a fondo y destacar sobre el resto de candidatos.
+    email: Envía y comparte tu resumen o portafolio con tus amigos, compañeros de trabajo o distintas ofertas de empleo que desees postular, directamente desde "tucv.cl".
+    search: Únete a TuCV y las empresas podrán encontrarte. Ofrecemos una búsqueda avanzada donde podrán conocer, revisar y analizar tu resumen, y contactarte para un futuro empleo.
+    responsive: Te Proporcionamos un diseño Web totalmente adaptable. Disponemos de un diseño optimizado donde podrás visualizar tu resumen sin problema en tu laptop, tablet o móvil.
+    download: Si no te conformas con tener tu curriculum web, puedes descargarlo y tenerlo en formato .PDF. Disponemos de plantillas totalmete gratuitas.
+    eye :  Te mantendremos informado sobre la cantidad de visitas que ha tenido tu resumen web a la fecha.
+    compartir: Puedes compartir en redes sociales tu resumen profesional, así te darás a conocer a millones de personas y/o empresas por el mundo.

@@ -1,0 +1,36 @@
+{% block edit_red %}
+<form action="{{ path('_edit_red') }}" method="POST" role="form">
+	<div class="row">
+	{% set values = ["facebook","twitter","google","youtube","instagram","pinterest","flickr","tumblr","soundcloud","linkedin"] %}
+	
+	{% for red in values %}
+		<div class="col-md-1">
+			<i class="fa fa-{{red}}"></i>
+		</div>
+		<div class="col-md-3">
+			<div class="form-group">
+				<input type="url" class="form-control input-sm" id="{{red}}" name="_{{red}}" 
+				placeholder="{{red}}.." 
+				{% if datosD %}
+				{% set elementos = datosD.redes|split('}') %}
+				{% for element in elementos %}
+					{% set valor = element|split('{') %}
+					{% if red == valor|first %}
+						{% set value = valor|last %}
+						value="{{value|trim}}"
+					{% endif %}
+				{% endfor %}
+				{% endif %}
+				autofocus/>
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+	<div class="modal-footer">
+        <button type="submit" class="btn btn-blue" id="name">Guardar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    </div>
+</form>
+{% endblock %}
+
+	

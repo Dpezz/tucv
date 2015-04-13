@@ -1,0 +1,124 @@
+{% block edit_idiom %}
+<form action="{{ path('_edit_idioma') }}" method="POST" role="form">
+	{% if datosI %}
+	<div class="panel-group" id="accordionIdiomas">
+	{% for idioma in datosI %}
+	
+	  	
+		<div id="panelIdiomas{{loop.index}}" class="panel panel-primary">
+			<div class="panel-heading">
+			    <h4 class="panel-title text-center">
+			        <a data-toggle="collapse" data-parent="#accordionIdiomas" href="#idiomasEdit{{ loop.index }}">
+			          	<span class="badge pull-left">{{ loop.index }}</span>
+			          	 {{ idioma.name}}.
+			        </a>
+			        <button id="idiomasClose{{loop.index}}" type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			    </h4>
+			</div>
+			<div id="idiomasEdit{{ loop.index }}" class="panel-collapse collapse">
+			    <div class="panel-body">
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="input-group">
+								<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Idioma"><i class="fa fa-comments"></i></span>
+								<input type="text" class="form-control input-sm" id="name" name="_name{{loop.index}}" 
+								 value="{% if idioma.name is not empty %}{{idioma.name}}{% endif %}" pattern="^[a-zA-ZñÑáéíóú ]+" required/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" {% if idioma.nativo %} checked="checked" {% endif %} name="_nativo{{loop.index}}">
+										Idioma Nativo
+								</label>
+							</div>
+						</div>
+								
+						<div class="form-group">
+							<div class="col-md-8">
+								<input id="idiom{{loop.index}}" name="_value{{loop.index}}" data-slider-id='value' type="text" data-slider-min="1" data-slider-max="100" data-slider-step="1" data-slider-value="{{idioma.value}}" value="{{idioma.value}}"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+
+	<div class="modal-footer">
+        <button type="submit" class="btn btn-blue" id="name">Guardar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    </div>
+    {% else %}
+    <p><i class="fa fa-plus-square"></i> Agregar Idiomas</p>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    </div>
+	{% endif %}
+</form>
+
+{% endblock %}
+
+{% block new_idiom %}
+<form action="{{ path('_new_idioma') }}" method="POST" role="form">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<div class="input-group">
+				<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Nuevo idioma"><i class="fa fa-comments"></i></span>
+				<input type="text" class="form-control input-sm" id="name" name="_name"  placeholder="Idioma..." pattern="^[a-zA-ZñÑáéíóú ]+" required/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="_nativo" checked="checked">
+						Idioma Nativo
+				</label>
+			</div>
+		</div>
+	</div>		
+	<div class="well">
+		<span class="badge pull-left btn-blue-dark">1</span><span class="badge pull-right btn-blue-dark">100</span>
+		<input id="idiomNew" name="_valorIdioma" data-slider-id='value' type="text" data-slider-min="1" data-slider-max="100" data-slider-step="1" data-slider-value="50"/>
+	</div>
+	<br>
+
+	<div class="modal-footer">
+        <button type="submit" class="btn btn-blue">Guardar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    </div>
+</form>
+
+<script src="{{asset('bundles/pcvdemo/js/slider/bootstrap-slider.js')}}"></script>
+<link rel="stylesheet" href="{{asset('bundles/pcvdemo/css/slider.css')}}">
+<script type="text/javascript">
+	$('#idiomNew').slider({
+		formater: function(value) {
+			return 'nivel: ' + value +'%';
+		}
+	});
+	$('#idiomNew').val(50);
+
+	{% if datosI %}
+	{% for idioma in datosI %}
+		$('#idiom{{loop.index}}').slider({
+			formater: function(value{{loop.index}}) {
+				return 'nivel: ' + value{{loop.index}} +'%';
+			}
+		});
+
+		$('#idiomasClose{{loop.index}}').click(function(){
+			$('#panelIdiomas{{loop.index}}').remove();
+		});
+	{% endfor %}
+	{% endif %}
+
+</script>
+{% endblock %}
+

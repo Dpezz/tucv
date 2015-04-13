@@ -1,0 +1,44 @@
+{% extends 'PCVDemoBundle:Plantillas:page.html.twig' %} 
+
+{% block title 'tuCV | Búsqueda'  %}
+
+{% block navbar %}
+	{% embed 'PCVDemoBundle:Plantillas:pagenav.html.twig' %}
+		{% block navbar %}
+			{{parent()}}
+		{% endblock %}
+	{% endembed %}
+{% endblock %}
+
+
+{% block contenido %}
+  <br>
+  <div class="container">
+
+      {% use 'PCVDemoBundle:Search:panelSearch.html.twig' %}
+      {% block panel_search %}
+          {{parent()}}
+      {% endblock %}
+
+
+      {% use 'PCVDemoBundle:Search:find.html.twig' %}
+    	{% block finder %}
+        	{{parent()}}
+    	{% endblock %}
+
+  </div>
+
+{% endblock %}
+
+
+
+{% block footer_page %}
+
+    <!-- mostramos el texto de cabecera  -->
+    {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}
+    {% block footer %}
+        {{parent()}}
+    {% endblock %}
+    <!-- end embed -->
+
+{% endblock %}

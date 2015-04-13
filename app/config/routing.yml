@@ -1,0 +1,2 @@
+_pcv_demo:
+    resource: "@PCVDemoBundle/Resources/config/routing.yml"

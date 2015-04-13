@@ -1,0 +1,94 @@
+{% block education_private %}
+
+	{% block education_public %}
+
+		{% if datosEd %}
+		{% set meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"] %}
+			{% for edu in datosEd %}
+			
+				{% set fecha = edu.fecha|split('-') %}
+			 	<div class="row">
+				 	<div class="col-md-12">
+
+						{#<h5 class="media-heading"><em><strong>{{edu.subject}}</strong></em></h5>#}
+						
+						<h5 class="label label-yellow">{{meses[fecha|first|split(',')|first -1]}},&nbsp;{{fecha|first|split(',')|last}}</h5>-
+						{% if fecha|last|split(',')|last is not empty %}
+							<h5 class="label label-yellow">{{meses[fecha|last|split(',')|first -1]}},&nbsp;{{fecha|last|split(',')|last}}</h5>
+						{% else %}
+							<h5 class="label btn-blue-dark">hoy</h5>
+						{% endif %}
+						<br>
+						<h5 class="label label-info">{{edu.city}}, {{edu.country}}</h5>
+					
+						<h4 class="text-primary"><strong>{{edu.school}}</strong></h4>
+						<h4 class="text-muted"><em><strong>{{edu.course}}</strong></em></h4>
+						<h6 class="text-muted">{{edu.description}}</h6>
+					</div>
+				</div>
+				<hr>
+			{% endfor %}
+		{% else %}
+			<h5 class="text-center text-muted">
+				<a href="#" data-toggle="modal" data-target="#newEducation">
+					<em><i class="fa fa-plus-circle"></i>&nbsp;agregar educaciones</em>
+				</a>
+			</h5>
+		{% endif %}
+
+	{% endblock %}
+
+	<div class="">
+		<h3 class="panel-title"> 
+	    	<div class="btn-group pull-right">
+			  	<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+			    	<i class="fa fa-pencil"></i> <span class="caret"></span>
+			  	</button>
+			  	<ul class="dropdown-menu" role="menu">
+			    	<li><a href="#" data-toggle="modal" data-target="#newEducation"><i class="fa fa-book"></i> nueva Educación</a></li>
+			    	<li><a href="#" data-toggle="modal" data-target="#editEducation"><i class="fa fa-pencil-square-o"></i> editar Educación</a></li>
+			  	</ul>
+			</div>
+	    </h3>
+	</div>
+{% endblock %}
+
+
+
+{% block modal_education %}
+<!-- Modal -->
+<div class="modal fade" id="editEducation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Editar Educación</h4>
+      </div>
+      <div class="modal-body">
+        {% use 'PCVDemoBundle:Edit:educacion.html.twig' %}
+        {% block edit_education %}
+        {{parent()}}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="newEducation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Nueva Educación</h4>
+      </div>
+      <div class="modal-body">
+        {% use 'PCVDemoBundle:Edit:educacion.html.twig' %}
+        {% block new_education %}
+        {{parent()}}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
