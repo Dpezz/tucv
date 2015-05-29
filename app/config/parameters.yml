@@ -5,11 +5,11 @@ parameters:
     database_port: null
     database_name: tucv_db
     database_user: root
-    database_password: root
+    database_password: --
     mailer_transport: smtp
-    mailer_host: solu10.tuwebdns.net
+    mailer_host: --
     mailer_user: contacto@tucv.cl
-    mailer_password: N9BQ!J;9UPxb
+    mailer_password: --
     locale: en
     secret: ThisTokenIsNotSoSecretChangeIt
     resume: visualiza tus datos de forma simple y ordenada. Facilitamos el ingreso de tus datos de forma creativa, entregando una combinación perfecta entre sencillez y modernidad.
