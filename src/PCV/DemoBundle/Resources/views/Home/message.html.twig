@@ -1,0 +1,46 @@
+{% extends 'PCVDemoBundle:Plantillas:page.html.twig' %} 
+
+{% block title 'tucv - Únete y sé parte del cambio'  %}
+
+{% block javascripts %}
+  {{ parent() }}
+    <script src="{{ asset('bundles/pcvdemo/js/validate_controller.js') }}"></script>
+{% endblock %}
+
+
+{% block navbar %}
+  {% embed 'PCVDemoBundle:Plantillas:pagenav.html.twig' %}
+      {% block navbar %}
+        {{parent()}}
+      {% endblock %}
+  {% endembed %}
+{% endblock %}
+
+
+{% block contenido %}
+
+  <div class="container">
+    <div class="row" style="margin-top:50px">
+      <div class="col-md-5 col-md-offset-3">
+        <h1 class="page-header text-muted">
+          <i class="fa fa-times-circle text-danger"></i>&nbsp;Cancelado
+        </h1>
+        <p>Ha ocurrido un error, y tu solicitud no se ha podido realizar con exito.
+        <br>Posibles problemas:<br>
+        </p>
+        <ol>
+          <li>Datos ingresados incorrectos.</li>
+          <li>Email Ingresado ya registrado.</li>
+          <li>Problemas con el servidor.</li>
+        </ol>
+        <p>Vuelve a intentar en un momento, Gracias.</p>
+        <a href="{{ path('_demo_login') }}"><i class="fa fa-arrow-left"></i>&nbsp;volver</a>
+      </div>  
+    </div>
+    
+  </div>
+
+{% endblock %}
+
+
+

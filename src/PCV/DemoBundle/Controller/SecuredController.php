@@ -105,8 +105,8 @@ class SecuredController extends Controller
                 ->setTo($email)
                 ->setBody(
                     $this->renderView(
-                        'PCVDemoBundle:Contenido:emailcontenido.html.twig',
-                        array('emailSeguro' => $emailESecured, 'email'=>$email,'name'=> $user->getName())
+                        'PCVDemoBundle:Contenido:email_resend.html.twig',
+                        array('emailSeguro' => $emailESecured, 'email'=>$email)
                     ),'text/html'
                     )
                 ;
@@ -180,7 +180,7 @@ class SecuredController extends Controller
                 ->setTo($email)
                 ->setBody(
                     $this->renderView(
-                        'PCVDemoBundle:Contenido:emailpassword.html.twig',
+                        'PCVDemoBundle:Contenido:email_password.html.twig',
                         array('name'=> $name,'email'=> $email)
                     ),'text/html'
                 );

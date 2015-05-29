@@ -153,7 +153,7 @@ class EditController extends Controller
         ->setTo($email)
         ->setBody(
             $this->renderView(
-                'PCVDemoBundle:Contenido:emailpassword.html.twig',
+                'PCVDemoBundle:Contenido:email_password.html.twig',
                 array('name'=> $name,'email'=> $email)
             ),'text/html'
         );
@@ -1183,6 +1183,7 @@ class EditController extends Controller
         $msg = $request->get('_msg');
         $correos = split(",", $toEmail);
 
+       
         $imagen = $user->getImagenUrl();
         if(empty($imagen)){
             $imagen = 'bundles/pcvdemo/image/noimagen.png';
@@ -1191,21 +1192,21 @@ class EditController extends Controller
         }
 
         foreach ($correos as $correo) {
-            $this->sendMessage($imagen,$user->getName(),$user->getResumenUrl(),$datos->getProfesion(),$user->getEmail(),$correo,$asunto,$msg);
+            $this->sendMessage($imagen,$user->getName(),$user->getResumenUrl(),$user->getEmail(),$correo,$asunto,$msg);
         }
         return $this->redirect($this->generateUrl('_private_resume_profile'));  
     }
 
     
-    private function sendMessage($imagen,$name,$url,$profesion, $email,$toEmail,$subject,$message){
+    private function sendMessage($imagen,$name,$url, $email,$toEmail,$subject,$message){
         $message = \Swift_Message::newInstance()
                 ->setSubject('TuCV -'.$subject)
                 ->setFrom('contacto@tucv.cl')
                 ->setTo($toEmail)
                 ->setBody(
                     $this->renderView(
-                        'PCVDemoBundle:Contenido:emailCV.html.twig',
-                        array('imagen'=> $imagen,'name'=> $name,'email'=> $email,'message'=> $message,'url'=> $url,'profesion'=> $profesion)
+                        'PCVDemoBundle:Contenido:email_mail.html.twig',
+                        array('imagen'=> $imagen,'name'=> $name,'email'=> $email,'message'=> $message,'url'=> $url)
                     ),'text/html'
                 );
                 $this->get('mailer')->send($message);

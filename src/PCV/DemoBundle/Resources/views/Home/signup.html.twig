@@ -1,169 +1,75 @@
 {% block signup %}
 
-    <form id="sigupForm" action="{{path('_demo_signup')}}" method="post" role="form">
-    	
-		<div class="form-group">
+<div ng-app="validate" ng-controller="signinForm">
+    <form name="userForm" ng-submit="submitForm()" novalidate>
+	   {# Name #}
+		<div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
 			<div class="input-group ">
 				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-				<input type="text" class="form-control" id="name" name="_name" placeholder="Nombre" 
-                 pattern="^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*" required/>
+				<input type="text" class="form-control" name="name" placeholder="Nombre" ng-model="user.name" required/>
             </div>
+            <p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="help-block">obligatorio.</p>
         </div>
-	
-        <div class="form-group">
+
+        
+        {# Plast #}
+        <div class="form-group" ng-class="{ 'has-error' : userForm.plast.$invalid && !userForm.plast.$pristine }">
             <div class="input-group ">
                 <span class="input-group-addon"><i class="fa fa-male"></i></span>
-                <input type="text" class="form-control" id="plastname" name="_plastname" placeholder="Apellido Paterno" 
-                pattern="^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*" required/>
+                <input type="text" class="form-control" name="plast" placeholder="Apellido Paterno" ng-model="user.plast" required/>
             </div>
+            <p ng-show="userForm.plast.$invalid && !userForm.plast.$pristine" class="help-block">obligatorio.</p>
         </div>
         
-        <div class="form-group">
+
+        {# Mlast #}
+        <div class="form-group" ng-class="{ 'has-error' : userForm.mlast.$invalid && !userForm.mlast.$pristine }">
             <div class="input-group ">
                 <span class="input-group-addon"><i class="fa fa-female"></i></span>
-                <input type="text" class="form-control" id="mlastname" name="_mlastname" placeholder="Apellido Materno"pattern="^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*" required/>
+                <input type="text" class="form-control" name="mlast" placeholder="Apellido Materno" ng-model="user.mlast" required/>
             </div>
+            <p ng-show="userForm.mlast.$invalid && !userForm.mlast.$pristine" class="help-block">obligatorio.</p>
         </div>
 
         <hr>
 
-        <div id="helper-email" class="form-group">
+        {# Email #}
+        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
             <div class="input-group ">
                 <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                <input type="text" class="form-control" id="email" name="_email" placeholder="Correo electrónico" 
-                pattern="^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" required/>
-                <input type="hidden" id="state-email">
+                <input type="text" class="form-control" name="email" placeholder="Correo electrónico" ng-model="user.email" ng-change="find()" required/>
            </div>
-           <p id="helper"></p>
+           <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">obligatorio.</p>
         </div>  
 
         <hr>
 
-        <div class="form-group">
+        {# PASSWORD #}
+        <div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
             <div class="input-group ">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input type="password" class="form-control" id="psw" name="_password" placeholder="Contraseña" required />
+                <input type="password" class="form-control" name="password" ng-model="user.password" placeholder="Contraseña" required />
             </div>
+            <p ng-show="userForm.password.$invalid && !userForm.password.$pristine" class="help-block">obligatorio.</p>
         </div>
    
-        
-
-        <div class="form-group">
+        {# CONFIRM PASSWORD #}
+        <div class="form-group" ng-class="{ 'has-error' : userForm.confirmPassword.$invalid && !userForm.confirmPassword.$pristine }">
             <div class="input-group ">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input type="password" class="form-control" id="psw-re" placeholder="Repetir contraseña" required />
+                <input type="password" class="form-control" name="confirmPassword" ng-model="user.confirmPassword" repeat-password="password" placeholder="Repetir contraseña" required />
             </div>
+            <p ng-show="userForm.confirmPassword.$invalid && !userForm.confirmPassword.$pristine" class="help-block">Passwords no coinciden.</p>
+            <p class="text-danger" ng-show="userForm.confirmPassword.$dirty && userForm.confirmPassword.$error.dontMatch">Passwords no coinciden</p>
         </div>
    
-        
-          
         <div class="modal-footer">
-            <h5 id="nivelpass" class='pull-left text-danger'></h5><br>
-            <h5 id="equalpass" class='pull-left text-danger'></h5>
-            <button type="submit" class="btn btn-default btn-lg" id="btn" disabled="disabled"><i class="fa fa-sign-in"></i>&nbsp;Registrar</button>
+            <h5 class="pull-left text-danger">{[{checkemail}]}</h5>      
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cerrar</button>
+            <button type="submit" class="btn btn-info btn-lg" ng-disabled="userForm.$invalid"><i class="fa fa-sign-in white"></i>&nbsp;Registrar</button>
         </div>
-
-
     </form>
-
-    <script type="text/javascript">
-
-        $('#name,#plastname,#mlastname,#email').keyup(function(){
-            verificar();
-        })
-
-        $("#psw").keyup(function() {
-            $('#nivelpass').html(nivelPassword($('#psw').val()));
-            $('#equalpass').html(activar($('#psw').val(), $('#psw-re').val()));
-        });
-
-        $("#psw-re").keyup(function() {
-            $('#equalpass').html(equalsPassword($('#psw').val(), $('#psw-re').val()));
-        });
-
-        $('#email').keyup(function(){
-            $.ajax({
-              url: '{{ path('_find_email') }}',
-              method: "post",
-              data: { 'email' : $('#email').val() },
-              success: function(result){
-                if(result == 0){
-                    $('#helper-email').attr('class','form-group has-success');
-                    $('#helper').attr('class','text-success');
-                    $('#helper').html('<i class="fa fa-check"></i>&nbsp;Email disponible');
-                    $('#state-email').val('0');
-                    verificar();
-                }else{
-                    $('#helper-email').attr('class','form-group has-error');
-                    $('#helper').attr('class','text-danger');
-                    $('#helper').html('<i class="fa fa-times"></i>&nbsp;Email No disponible');
-                    $('#state-email').val('1');
-                    verificar();
-                }
-              }
-            })
-        });
-
-        $('#btn').click(function(){
-            $('#nivelpass').html('');
-            $('#equalpass').html('<i class="fa fa-refresh"></i>&nbsp;Registrando Usuario');
-        });
-
-
-        function nivelPassword(clave){
-            if(clave.length > 3){return '';}
-            else {return 'Débil';}
-        };
-
-
-        function equalsPassword(clave1,clave2){
-            if(clave1 != clave2){
-                verificar();
-                $('#btn').attr('disabled','disabled');
-                return 'Las contraseñas no coinciden!';}
-            else {
-                $('#btn').removeAttr('disabled');
-                verificar();
-                return '';
-            }
-        };
-
-
-        function activar(clave1,clave2){
-            if(clave2.length>0){
-                if(clave1 != clave2){
-                    verificar();
-                    $('#btn').attr('disabled','disabled');
-                    return 'Las contraseñas no coinciden!';
-                }
-                else {
-                    $('#btn').removeAttr('disabled');
-                    verificar();
-                    return '';
-                }
-            }
-        };
-
-
-        function verificar(){
-            var name = $('#name').val().length;
-            var plast = $('#plastname').val().length;
-            var mlast = $('#mlastname').val().length;
-            var email = $('#email').val().length;
-            var email2 = $('#state-email').val();
-            var pass1 = $('#psw').val().length;
-            var pass2 = $('#psw-re').val().length;
-
-
-            if(name>0 && plast>0 && mlast>0 && email>0 && pass1>0 && pass2>0 && email2=='0'){
-                $('#btn').removeAttr('disabled');
-            }else{
-                $('#btn').attr('disabled','disabled');
-            }
-        };
-
-    </script>
-
+</div>
 {% endblock %}
 
 

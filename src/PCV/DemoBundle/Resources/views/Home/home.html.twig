@@ -2,6 +2,12 @@
 
 {% block title 'tucv - Únete y sé parte del cambio'  %}
 
+{% block javascripts %}
+  {{ parent() }}
+
+{% endblock %}
+
+
 {% block navbar %}
   {% embed 'PCVDemoBundle:Plantillas:pagenav.html.twig' %}
       {% block navbar %}
@@ -12,6 +18,7 @@
 
 
 {% block contenido %}
+
   <div class="jumbotron" style="background: url('{{asset('bundles/pcvdemo/image/home.png')}}'); width:100%">
     <br>
       {% use 'PCVDemoBundle:Contenido:contenido.html.twig' %}

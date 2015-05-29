@@ -1,15 +1,18 @@
 <?php
 
 namespace PCV\DemoBundle\Controller;
-
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Security\Core\SecurityContext;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+// these import the "@Route" and "@Template" annotations
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Security\Core\SecurityContext;
+
 
 use PCV\DemoBundle\Entity\User;
 
@@ -22,7 +25,7 @@ class ResumenController extends Controller
      */
     public function resumenAction(Request $request)
     {
-        $id = $this->getUser() -> getId();
+        $id = $this->getUser()->getId();
         //creamos una cookie con el name
         $request->getSession()->set('name', $id);
 

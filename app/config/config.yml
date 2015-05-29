@@ -39,7 +39,6 @@ twig:
         search: "%search%"
         responsive: "%responsive%"
         download: "%download%"
-        cantidadcv: "%cantidadcv%"
         eye: "%eye%"
         compartir: "%compartir%"
 

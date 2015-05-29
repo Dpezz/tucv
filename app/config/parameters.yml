@@ -1,19 +1,17 @@
 # This file is auto-generated during the composer install
 parameters:
     database_driver: pdo_mysql
-    database_host: nnull
-    database_port: 3306
-    database_name: tucvcl_users_database
-    database_user: tucvcl_root
-    database_password: null
+    database_host: localhost
+    database_port: null
+    database_name: tucv_db
+    database_user: root
+    database_password: root
     mailer_transport: smtp
-    mailer_host: mail.tucv.cl
+    mailer_host: solu10.tuwebdns.net
     mailer_user: contacto@tucv.cl
-    mailer_password: null
+    mailer_password: N9BQ!J;9UPxb
     locale: en
     secret: ThisTokenIsNotSoSecretChangeIt
-    database_path: null
-    cantidadcv: 890+
     resume: visualiza tus datos de forma simple y ordenada. Facilitamos el ingreso de tus datos de forma creativa, entregando una combinación perfecta entre sencillez y modernidad.
     project: Exhibe al mundo tus creaciones. Incluimos un portafolio donde podrás presentar, detallar y compartir todos los proyectos o trabajos profesionales en que has participado.
     cloud: Crea tu perfil Profesional y mantenlo en la web, comparte y envía sólo la dirección de tu Resumen, desde el lugar en que te encuentres y cuando quieras.

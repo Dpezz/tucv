@@ -12,7 +12,8 @@
 }
 html {
 
-  font-family: "SSansPro";*/
+  /*font-family: "SSansPro";*/
+  font-family: 'Source Sans Pro', sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
