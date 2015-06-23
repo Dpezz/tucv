@@ -419,12 +419,12 @@ class EditController extends Controller
      */
     public function editRedAction(Request $request)
     {
-        $email = $this->getUser() -> getEmail();
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $user = $dm->getRepository('PCVDemoBundle:User')->findOneBy(array('email' => $email ));
+        $id = $this->getUser() -> getId();
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('PCVDemoBundle:Datos')->find($id);
 
         if (!$user) {
-            throw $this->createNotFoundException('No User found for email ');
+            throw $this->createNotFoundException('No User found for id ');
         }
 
         $array = array("facebook","twitter","google","youtube","instagram","pinterest","flickr","tumblr","soundcloud","linkedin");
@@ -437,7 +437,7 @@ class EditController extends Controller
             }        
         }
         $user->setRedes($cadena);
-        $dm->flush();
+        $em->flush();
 
         return $this->redirect($this->generateUrl('_private_resume_profile'));
     }

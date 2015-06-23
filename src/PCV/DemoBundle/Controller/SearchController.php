@@ -48,7 +48,7 @@ class SearchController extends Controller
         $user = $em
         ->createQuery('SELECT u.imagenUrl,u.username, u.plastname, u.mlastname, u.resumenUrl, d.profesion 
             FROM PCVDemoBundle:User u INNER JOIN PCVDemoBundle:Datos d 
-            WHERE u.id = d.id and u.name LIKE :name')
+            WHERE u.id = d.id and u.name LIKE :name order by u.createAt DESC')
         ->setParameter('name', '%'.$name.'%')
         ->setFirstResult($page*20)
         ->setMaxResults(21)

@@ -6,7 +6,7 @@
 			{% for proyecto in datosP|batch(4, '') %}
 			<div class="row">
 
-				{% for proy in datosP %}	
+				{% for proy in proyecto %}	
 					{% if proy is not empty%}
 					{% set meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"] %}
 					<div class="col-md-3">
