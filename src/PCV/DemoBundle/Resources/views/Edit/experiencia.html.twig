@@ -192,7 +192,7 @@
 			<div class="col-md-3">
 				<select class="form-control" name="_desdeAño" required>
 					<option value="">Año:</option>
-					{% for i in 2014..1940 %}
+					{% for i in 'now'|date('Y')..1940 %}
 					<option>{{i}}</option>
 					{% endfor %}
 				</select>		    

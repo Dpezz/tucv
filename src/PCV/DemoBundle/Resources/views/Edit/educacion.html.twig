@@ -76,7 +76,7 @@
 							<div class="col-md-4">
 								<select class="form-control" name="_desdeAño{{loop.index}}" required>
 									<option {% if item|last == "" %}selected{% endif %} value="">Año:</option>
-									{% for i in 2014..1940 %}
+									{% for i in 'now'|date('Y')..1940 %}
 									<option {% if item|last == i %}selected{% endif %}>{{i}}</option>
 									{% endfor %}
 								</select>		   
@@ -113,7 +113,7 @@
 									
 									<select class="form-control" id="hastaAño{{loop.index}}" name="_hastaAño{{loop.index}}" required="required">
 										<option {% if item|last == "" %}selected{% endif %} value="">Año:</option>
-										{% for i in 2014..1940 %}
+										{% for i in 'now'|date('Y')..1940 %}
 											<option {% if item|last == i %}selected{% endif %}>{{i}}</option>
 										{% endfor %}
 									</select>
@@ -213,7 +213,7 @@
 			<div class="col-md-4">
 				<select class="form-control" name="_desdeAño" required>
 					<option value="">Año:</option>
-					{% for i in 2014..1940 %}
+					{% for i in 'now'|date('Y')..1940 %}
 						<option>{{i}}</option>
 					{% endfor %}
 				</select>		    

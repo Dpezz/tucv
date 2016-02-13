@@ -78,7 +78,7 @@
 								<span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Año"><i class="fa fa-calendar"></i></span>
 								<select class="form-control" name="_año{{ loop.index }}" required>
 									<option {% if item|last == 'Año:' %}select{% endif %} value="">Año:</option>
-									{% for i in 2014..1940 %}
+									{% for i in 'now'|date('Y')..1940 %}
 									<option {% if item|last == i %}selected{% endif %}>{{i}}</option>
 									{% endfor %}
 								</select>		        		
@@ -179,7 +179,7 @@
 				<span class="input-group-addon" data-toggle="tooltip" data-placement="left" title="Año"><i class="fa fa-calendar"></i></span>
 				<select class="form-control" name="_año" required>
 					<option value="">Año:</option>
-					{% for i in 2014..1940 %}
+					{% for i in 'now'|date('Y')..1940 %}
 					<option value="{{i}}">{{i}}</option>
 					{% endfor %}
 				</select>		        		
